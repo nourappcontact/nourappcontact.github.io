@@ -132,6 +132,19 @@
   .footer-links a:hover { color: var(--teal); }
   .footer-copy { font-size: 0.72rem; color: rgba(200,192,174,0.3); }
 
+  .faq-section { padding: 6rem; }
+  .faq-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .faq-group { margin-bottom: 0.5rem; }
+  .faq-group-title { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--teal); margin-bottom: 0.75rem; margin-top: 1.5rem; }
+  .faq-item { background: var(--green-dark); border: 1px solid rgba(63,184,122,0.08); border-radius: 14px; margin-bottom: 0.5rem; overflow: hidden; }
+  .faq-q { padding: 1rem 1.2rem; font-size: 0.88rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+  .faq-q:hover { background: rgba(63,184,122,0.04); }
+  .faq-icon { color: var(--teal); font-size: 1.1rem; flex-shrink: 0; transition: transform 0.2s; }
+  .faq-a { font-size: 0.83rem; color: var(--cream-dim); line-height: 1.7; padding: 0 1.2rem 1rem; display: none; }
+  .faq-item.open .faq-a { display: block; }
+  .faq-item.open .faq-icon { transform: rotate(45deg); }
+  @media (max-width: 900px) { .faq-section { padding: 4rem 2rem; } .faq-grid { grid-template-columns: 1fr; } }
+
   @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
@@ -228,10 +241,17 @@
   </div>
 </section>
 
+<section class="faq-section">
+  <div class="section-label" data-t="faq_label"></div>
+  <h2 class="section-title" data-t="faq_title"></h2>
+  <div class="faq-grid" id="faq-container"></div>
+</section>
+
 <footer>
   <div class="footer-logo">نور · Nour</div>
   <div class="footer-links">
     <a href="https://nourappcontact.github.io/nour-privacy/" data-t="privacy"></a>
+    <a href="https://nourappcontact.github.io/nour-terms/" data-t="terms"></a>
     <a href="mailto:nourappdigital@gmail.com" data-t="contact"></a>
   </div>
   <div class="footer-copy">© 2026 Nour Digital</div>
@@ -257,7 +277,9 @@ const T = {
     pf1:"Modo Nour Jr. para hijos (hasta 5)", pf2:"Panel de seguimiento para padres",
     pf3:"Tiempos de rezo precisos por GPS", pf4:"Tasbih digital con estadísticas",
     pf5:"Más de 200 versículos del Corán", pf6:"Sin anuncios en toda la app",
-    trial:"5 días de prueba gratis · Sin compromiso", privacy:"Política de privacidad", contact:"Contacto"
+    trial:"5 días de prueba gratis · Sin compromiso", privacy:"Política de privacidad", contact:"Contacto",
+    faq_label:"Preguntas frecuentes", faq_title:"¿Tienes dudas?",
+    terms:"Términos de uso"
   },
   en: {
     badge:"Islamic family app", tagline:"Prayer times, tasbih, Quran verses and Islamic learning for your children — all in one app, ad-free.", download:"Download on Google Play",
@@ -277,7 +299,9 @@ const T = {
     pf1:"Nour Jr. mode for children (up to 5)", pf2:"Parent tracking dashboard",
     pf3:"Accurate GPS prayer times", pf4:"Digital tasbih with statistics",
     pf5:"200+ Quran verses", pf6:"Ad-free throughout the app",
-    trial:"5-day free trial · No commitment", privacy:"Privacy policy", contact:"Contact"
+    trial:"5-day free trial · No commitment", privacy:"Privacy policy", contact:"Contact",
+    faq_label:"FAQ", faq_title:"Got questions?",
+    terms:"Terms of use"
   },
   ar: {
     badge:"تطبيق إسلامي عائلي", tagline:"أوقات الصلاة، التسبيح، آيات قرآنية وتعليم إسلامي لأطفالك — كل شيء في تطبيق واحد، بدون إعلانات.", download:"تحميل على Google Play",
@@ -297,7 +321,9 @@ const T = {
     pf1:"وضع نور Jr للأطفال (حتى ٥)", pf2:"لوحة متابعة للوالدين",
     pf3:"أوقات صلاة دقيقة بالـ GPS", pf4:"مسبحة رقمية مع إحصائيات",
     pf5:"أكثر من ٢٠٠ آية قرآنية", pf6:"بدون إعلانات في التطبيق",
-    trial:"٥ أيام تجريبية مجانية · بدون التزام", privacy:"سياسة الخصوصية", contact:"تواصل معنا"
+    trial:"٥ أيام تجريبية مجانية · بدون التزام", privacy:"سياسة الخصوصية", contact:"تواصل معنا",
+    faq_label:"الأسئلة الشائعة", faq_title:"هل لديك أسئلة؟",
+    terms:"شروط الاستخدام"
   }
 };
 
@@ -310,6 +336,92 @@ function setLang(lang) {
   document.documentElement.lang = lang;
   document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
   document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent === lang.toUpperCase()));
+  renderFAQ(lang);
+}
+
+const FAQ = {
+  es: [
+    { section: 'General', items: [
+      { q: '¿Qué es Nour?', a: 'Nour es una app islámica familiar con dos modos: uno para el padre con tasbih, tiempos de rezo y versículos del Corán, y otro para el hijo con aprendizaje islámico gamificado y seguimiento de rezos.' },
+      { q: '¿Es gratuita?', a: 'Sí. Nour es completamente gratuita y sin anuncios. El modo Familiar (نور Jr.) requiere una suscripción gestionada desde Google Play.' },
+      { q: '¿Está disponible en más idiomas?', a: 'Sí, en árabe, español e inglés. Puedes cambiar el idioma en Ajustes.' },
+    ]},
+    { section: 'Modo hijo y código', items: [
+      { q: '¿Cómo accede mi hijo?', a: 'Desde tu panel de padres pulsa "Generar código" junto al perfil de tu hijo. Se genera un código de 6 dígitos válido 15 minutos. Tu hijo lo introduce en su dispositivo.' },
+      { q: '¿El código es de un solo uso?', a: 'Sí. Cada código es válido una sola vez y caduca a los 15 minutos. Si caduca, genera uno nuevo desde el panel.' },
+      { q: '¿Qué significa "pendiente de validar"?', a: 'Cuando tu hijo marca algo como aprendido te avisa para que lo valides. Puedes confirmar que realmente lo sabe o pedirle que lo repase.' },
+    ]},
+    { section: 'Suscripción y pagos', items: [
+      { q: '¿Cómo activo el modo Familiar?', a: 'Desde la pantalla de planes dentro de la app, elige el plan Familiar y completa el pago a través de Google Play.' },
+      { q: '¿Cómo cancelo la suscripción?', a: 'Puedes cancelar en cualquier momento desde Google Play → Suscripciones. El acceso se mantiene hasta el final del período pagado.' },
+      { q: '¿Tengo un código promocional, dónde lo introduzco?', a: 'Ve a Ajustes → Cuenta → "Tengo un código promocional".' },
+    ]},
+    { section: 'Técnico y privacidad', items: [
+      { q: '¿Qué datos recoge Nour?', a: 'Solo los necesarios: tu email para la cuenta, tu ubicación aproximada para los tiempos de rezo, y la actividad de rezos y formación de tus hijos. Nunca compartimos datos con terceros.' },
+      { q: '¿Funciona sin conexión?', a: 'El tasbih y los versículos guardados funcionan sin conexión. Los tiempos de rezo y el seguimiento de hijos requieren conexión.' },
+    ]},
+  ],
+  en: [
+    { section: 'General', items: [
+      { q: 'What is Nour?', a: 'Nour is a family Islamic app with two modes: one for parents with tasbih, prayer times and Quranic verses, and one for children with gamified Islamic learning and prayer tracking.' },
+      { q: 'Is it free?', a: 'Yes. Nour is completely free with no ads. Family mode (نور Jr.) requires a paid subscription managed through Google Play.' },
+      { q: 'Is it available in other languages?', a: 'Yes, in Arabic, Spanish and English. You can change the language in Settings.' },
+    ]},
+    { section: 'Child mode and access code', items: [
+      { q: 'How does my child access the app?', a: 'From your parent dashboard, tap "Generate code" next to your child\'s profile. A 6-digit code valid for 15 minutes is generated. Your child enters it on their device.' },
+      { q: 'Is the code single-use?', a: 'Yes. Each code is valid once only and expires after 15 minutes. If it expires, generate a new one from the dashboard.' },
+      { q: 'What does "pending validation" mean?', a: 'When your child marks a learning element as learned, it notifies you to validate it. You can confirm they know it or ask them to review it.' },
+    ]},
+    { section: 'Subscription and payments', items: [
+      { q: 'How do I activate Family mode?', a: 'From the plans screen inside the app, choose the Family plan and complete payment through Google Play.' },
+      { q: 'How do I cancel my subscription?', a: 'You can cancel at any time from Google Play → Subscriptions. Access continues until the end of the paid period.' },
+      { q: 'I have a promo code, where do I enter it?', a: 'Go to Settings → Account → "I have a promo code".' },
+    ]},
+    { section: 'Technical and privacy', items: [
+      { q: 'What data does Nour collect?', a: 'Only what is necessary: your email for the account, your approximate location for prayer times, and your children\'s prayer and learning activity. We never share data with third parties.' },
+      { q: 'Does it work offline?', a: 'Tasbih and saved verses work offline. Prayer times and child tracking require a connection.' },
+    ]},
+  ],
+  ar: [
+    { section: 'عام', items: [
+      { q: 'ما هو تطبيق نور؟', a: 'نور هو تطبيق إسلامي عائلي. يحتوي على وضعين: وضع للوالد مع المسبحة وأوقات الصلاة والآيات القرآنية، ووضع للطفل مع التعليم الإسلامي التفاعلي ومتابعة الصلوات.' },
+      { q: 'هل التطبيق مجاني؟', a: 'نعم. نور مجاني تماماً وبدون إعلانات. وضع العائلة (نور Jr.) يتطلب اشتراكاً يمكن إدارته من Google Play.' },
+      { q: 'هل التطبيق متاح بلغات أخرى؟', a: 'نعم، التطبيق متاح بالعربية والإسبانية والإنجليزية. يمكنك تغيير اللغة من الإعدادات.' },
+    ]},
+    { section: 'وضع الطفل ورمز الدخول', items: [
+      { q: 'كيف يدخل طفلي إلى التطبيق؟', a: 'من لوحة تحكم الوالدين، اضغط "إنشاء رمز الدخول" بجانب ملف طفلك. يتولّد رمز مكوّن من ٦ أرقام صالح لـ ١٥ دقيقة. يدخله طفلك في جهازه.' },
+      { q: 'هل الرمز للاستخدام مرة واحدة؟', a: 'نعم. كل رمز صالح مرة واحدة فقط وينتهي بعد ١٥ دقيقة. إذا انتهت صلاحيته، أنشئ رمزاً جديداً من اللوحة.' },
+      { q: 'ماذا يعني "في انتظار التحقق"؟', a: 'عندما يُعلّم طفلك عنصراً تعليمياً كمتعلَّم، يُخطرك لتتحقق منه. يمكنك تأكيد أنه يعرفه فعلاً أو طلب مراجعته.' },
+    ]},
+    { section: 'الاشتراك والمدفوعات', items: [
+      { q: 'كيف أفعّل وضع العائلة؟', a: 'من شاشة الخطط داخل التطبيق، اختر الخطة العائلية وأكمل الدفع عبر Google Play.' },
+      { q: 'كيف أُلغي الاشتراك؟', a: 'يمكنك الإلغاء في أي وقت من Google Play ← الاشتراكات. يستمر الوصول حتى نهاية الفترة المدفوعة.' },
+      { q: 'لديّ رمز ترويجي، أين أدخله؟', a: 'اذهب إلى الإعدادات ← الحساب ← "لديّ رمز ترويجي" وأدخله هناك.' },
+    ]},
+    { section: 'التقني والخصوصية', items: [
+      { q: 'ما البيانات التي يجمعها نور؟', a: 'فقط الضرورية: بريدك الإلكتروني للحساب، موقعك التقريبي لحساب أوقات الصلاة، ونشاط صلوات وتعلّم أطفالك. لا نشارك البيانات مع أطراف ثالثة أبداً.' },
+      { q: 'هل يعمل التطبيق بدون إنترنت؟', a: 'المسبحة والآيات المحفوظة تعمل بدون إنترنت. أوقات الصلاة ومتابعة الأطفال تحتاج اتصالاً.' },
+    ]},
+  ],
+};
+
+function renderFAQ(lang) {
+  const container = document.getElementById('faq-container');
+  const data = FAQ[lang] || FAQ.es;
+  const col1 = data.slice(0, 2);
+  const col2 = data.slice(2);
+  const renderCol = (sections) => sections.map(group => `
+    <div class="faq-group">
+      <div class="faq-group-title">${group.section}</div>
+      ${group.items.map(item => `
+        <div class="faq-item" onclick="this.classList.toggle('open')">
+          <div class="faq-q">${item.q}<span class="faq-icon">+</span></div>
+          <div class="faq-a">${item.a}</div>
+        </div>
+      `).join('')}
+    </div>
+  `).join('');
+  container.innerHTML = `<div>${renderCol(col1)}</div><div>${renderCol(col2)}</div>`;
 }
 
 const ul = navigator.language || 'es';
