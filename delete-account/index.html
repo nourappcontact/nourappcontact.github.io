@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نور · Nour — Eliminar cuenta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --green-deep:#071e0d; --green-dark:#0d2e15; --teal:#3fb87a; --teal-light:#6dcf9a; --cream:#f0ebe0; --cream-dim:#c8c0ae; }
+  body { background:var(--green-deep); color:var(--cream); font-family:'DM Sans',sans-serif; font-weight:300; min-height:100vh; display:flex; flex-direction:column; }
+  nav { padding:1.2rem 2rem; display:flex; justify-content:space-between; align-items:center; background:rgba(7,30,13,0.95); border-bottom:1px solid rgba(63,184,122,0.08); }
+  .nav-logo { font-family:'Cormorant Garamond',serif; font-size:1.5rem; color:var(--teal-light); text-decoration:none; }
+  .nav-back { font-size:0.82rem; color:var(--cream-dim); text-decoration:none; transition:color 0.2s; }
+  .nav-back:hover { color:var(--teal); }
+  .hero { flex:1; display:flex; flex-direction:column; align-items:center; padding:4rem 2rem; max-width:600px; margin:0 auto; width:100%; }
+  .icon { font-size:3rem; margin-bottom:1.5rem; }
+  h1 { font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,5vw,3rem); font-weight:300; text-align:center; margin-bottom:1rem; }
+  .subtitle { font-size:0.9rem; color:var(--cream-dim); text-align:center; line-height:1.8; margin-bottom:2rem; max-width:480px; }
+  .lang-switcher { display:flex; gap:0.5rem; margin-bottom:2rem; }
+  .lang-btn { background:none; border:1px solid rgba(63,184,122,0.2); color:var(--cream-dim); padding:0.3rem 0.8rem; border-radius:100px; font-size:0.75rem; cursor:pointer; transition:all 0.2s; font-family:'DM Sans',sans-serif; }
+  .lang-btn:hover,.lang-btn.active { background:rgba(63,184,122,0.1); color:var(--teal); border-color:var(--teal); }
+  .in-app-note { background:rgba(63,184,122,0.05); border:1px solid rgba(63,184,122,0.1); border-radius:14px; padding:1rem 1.2rem; margin-bottom:1.5rem; width:100%; }
+  .in-app-note p { font-size:0.82rem; color:var(--cream-dim); line-height:1.7; text-align:center; }
+  .in-app-note strong { color:var(--teal); }
+  .warning-card { background:rgba(192,57,43,0.08); border:1px solid rgba(192,57,43,0.2); border-radius:14px; padding:1.2rem 1.5rem; margin-bottom:1.5rem; width:100%; }
+  .warning-title { font-size:0.85rem; color:#ff6b6b; font-weight:500; margin-bottom:0.5rem; }
+  .warning-list { list-style:none; display:flex; flex-direction:column; gap:0.3rem; }
+  .warning-list li { font-size:0.82rem; color:var(--cream-dim); display:flex; gap:0.5rem; }
+  .warning-list li::before { content:'·'; color:#ff6b6b; flex-shrink:0; }
+  .card { background:var(--green-dark); border:1px solid rgba(63,184,122,0.1); border-radius:20px; padding:2rem; width:100%; margin-bottom:1.5rem; }
+  .form-group { margin-bottom:1.2rem; }
+  label { display:block; font-size:0.78rem; color:var(--cream-dim); letter-spacing:0.08em; margin-bottom:0.5rem; }
+  input,textarea { width:100%; background:rgba(7,30,13,0.8); border:1px solid rgba(63,184,122,0.15); border-radius:10px; padding:0.8rem 1rem; font-family:'DM Sans',sans-serif; font-size:0.9rem; color:var(--cream); outline:none; transition:border-color 0.2s; }
+  input:focus,textarea:focus { border-color:rgba(63,184,122,0.4); }
+  textarea { resize:vertical; min-height:100px; }
+  input::placeholder,textarea::placeholder { color:rgba(200,192,174,0.3); }
+  .checkbox-group { display:flex; gap:0.75rem; align-items:flex-start; margin-bottom:1.5rem; }
+  .checkbox-group input[type="checkbox"] { width:18px; height:18px; flex-shrink:0; margin-top:2px; accent-color:var(--teal); cursor:pointer; }
+  .checkbox-label { font-size:0.82rem; color:var(--cream-dim); line-height:1.6; }
+  .submit-btn { width:100%; background:#c0392b; color:#fff; border:none; padding:0.9rem; border-radius:100px; font-family:'DM Sans',sans-serif; font-weight:500; font-size:0.95rem; cursor:pointer; transition:all 0.25s; }
+  .submit-btn:hover { background:#e74c3c; transform:translateY(-1px); }
+  .submit-btn:disabled { opacity:0.4; cursor:not-allowed; transform:none; }
+  .alternative { text-align:center; font-size:0.82rem; color:var(--cream-dim); margin-top:1rem; line-height:1.8; }
+  .alternative a { color:var(--teal); text-decoration:none; }
+  footer { padding:1.5rem; text-align:center; font-size:0.72rem; color:rgba(200,192,174,0.3); border-top:1px solid rgba(63,184,122,0.07); }
+  footer a { color:rgba(200,192,174,0.4); text-decoration:none; }
+  footer a:hover { color:var(--teal); }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="https://nourappcontact.github.io" class="nav-logo">نور · Nour</a>
+  <a href="https://nourappcontact.github.io" class="nav-back" id="nav-back">← Volver</a>
+</nav>
+
+<div class="hero">
+  <div class="icon">🗑️</div>
+  <h1 id="main-title">Eliminar cuenta</h1>
+  <p class="subtitle" id="main-subtitle">Puedes solicitar la eliminación de tu cuenta y todos tus datos de Nour en cualquier momento.</p>
+
+  <div class="lang-switcher">
+    <button class="lang-btn active" onclick="setLang('es')">ES</button>
+    <button class="lang-btn" onclick="setLang('ar')">AR</button>
+    <button class="lang-btn" onclick="setLang('en')">EN</button>
+  </div>
+
+  <div class="in-app-note">
+    <p id="in-app-text">💡 <strong>La forma más rápida:</strong> desde la app, ve a <strong>Ajustes → Eliminar cuenta</strong>. Tu cuenta se eliminará inmediatamente.</p>
+  </div>
+
+  <div class="warning-card">
+    <div class="warning-title" id="warning-title">⚠️ Al eliminar tu cuenta se borrará permanentemente:</div>
+    <ul class="warning-list" id="warning-list">
+      <li>Tu cuenta y datos de acceso</li>
+      <li>Todos los perfiles de hijos</li>
+      <li>Historial de rezos y rachas</li>
+      <li>Progreso de formación islámica</li>
+      <li>Esta acción no se puede deshacer</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="form-group">
+      <label id="email-label">EMAIL DE LA CUENTA</label>
+      <input type="email" id="email-input" placeholder="tu@email.com">
+    </div>
+    <div class="form-group">
+      <label id="reason-label">MOTIVO (OPCIONAL)</label>
+      <textarea id="reason-input" placeholder="Cuéntanos por qué quieres eliminar tu cuenta..."></textarea>
+    </div>
+    <div class="checkbox-group">
+      <input type="checkbox" id="confirm-check" onchange="updateBtn()">
+      <label class="checkbox-label" for="confirm-check" id="confirm-label">
+        Entiendo que esta acción es permanente e irreversible y que se eliminarán todos mis datos.
+      </label>
+    </div>
+    <button class="submit-btn" id="submit-btn" disabled onclick="submitRequest()">
+      <span id="submit-text">Solicitar eliminación de cuenta</span>
+    </button>
+  </div>
+
+  <div class="alternative" id="alternative-text">
+    ¿Tienes dudas? Escríbenos a <a href="mailto:nourappdigital@gmail.com">nourappdigital@gmail.com</a><br>
+    Procesamos todas las solicitudes en un máximo de 7 días.
+  </div>
+</div>
+
+<footer>
+  <a href="https://nourappcontact.github.io/nour-privacy/">Política de privacidad</a> ·
+  <a href="https://nourappcontact.github.io/nour-terms/">Términos de uso</a> ·
+  © 2026 Nour Digital
+</footer>
+
+<script>
+const T = {
+  es: {
+    back:'← Volver', title:'Eliminar cuenta',
+    subtitle:'Puedes solicitar la eliminación de tu cuenta y todos tus datos de Nour en cualquier momento.',
+    inApp:'💡 <strong>La forma más rápida:</strong> desde la app, ve a <strong>Ajustes → Eliminar cuenta</strong>. Tu cuenta se eliminará inmediatamente.',
+    warningTitle:'⚠️ Al eliminar tu cuenta se borrará permanentemente:',
+    warningItems:['Tu cuenta y datos de acceso','Todos los perfiles de hijos','Historial de rezos y rachas','Progreso de formación islámica','Esta acción no se puede deshacer'],
+    emailLabel:'EMAIL DE LA CUENTA', emailPlaceholder:'tu@email.com',
+    reasonLabel:'MOTIVO (OPCIONAL)', reasonPlaceholder:'Cuéntanos por qué quieres eliminar tu cuenta...',
+    confirmLabel:'Entiendo que esta acción es permanente e irreversible y que se eliminarán todos mis datos.',
+    submitText:'Solicitar eliminación de cuenta',
+    alternative:'¿Tienes dudas? Escríbenos a <a href="mailto:nourappdigital@gmail.com">nourappdigital@gmail.com</a><br>Procesamos todas las solicitudes en un máximo de 7 días.',
+    subject:'Solicitud de eliminación de cuenta — Nour',
+    body:(e,r)=>`Solicitud de eliminación de cuenta\n\nEmail: ${e}\nMotivo: ${r||'No especificado'}\n\nConfirmo que quiero eliminar mi cuenta y todos mis datos de Nour de forma permanente.`,
+  },
+  en: {
+    back:'← Back', title:'Delete account',
+    subtitle:'You can request the deletion of your account and all your Nour data at any time.',
+    inApp:'💡 <strong>Fastest way:</strong> from the app, go to <strong>Settings → Delete account</strong>. Your account will be deleted immediately.',
+    warningTitle:'⚠️ Deleting your account will permanently remove:',
+    warningItems:['Your account and login data','All children profiles','Prayer history and streaks','Islamic learning progress','This action cannot be undone'],
+    emailLabel:'ACCOUNT EMAIL', emailPlaceholder:'your@email.com',
+    reasonLabel:'REASON (OPTIONAL)', reasonPlaceholder:'Tell us why you want to delete your account...',
+    confirmLabel:'I understand this action is permanent and irreversible and all my data will be deleted.',
+    submitText:'Request account deletion',
+    alternative:'Have questions? Email us at <a href="mailto:nourappdigital@gmail.com">nourappdigital@gmail.com</a><br>We process all requests within 7 days.',
+    subject:'Account deletion request — Nour',
+    body:(e,r)=>`Account deletion request\n\nEmail: ${e}\nReason: ${r||'Not specified'}\n\nI confirm I want to permanently delete my Nour account and all my data.`,
+  },
+  ar: {
+    back:'رجوع →', title:'حذف الحساب',
+    subtitle:'يمكنك طلب حذف حسابك وجميع بياناتك في نور في أي وقت.',
+    inApp:'💡 <strong>الطريقة الأسرع:</strong> من التطبيق، اذهب إلى <strong>الإعدادات ← حذف الحساب</strong>. سيتم حذف حسابك فوراً.',
+    warningTitle:'⚠️ عند حذف حسابك سيتم حذف ما يلي نهائياً:',
+    warningItems:['حسابك وبيانات الدخول','جميع ملفات الأطفال','سجل الصلوات والسلاسل','تقدم التعليم الإسلامي','لا يمكن التراجع عن هذا الإجراء'],
+    emailLabel:'البريد الإلكتروني للحساب', emailPlaceholder:'بريدك@الإلكتروني.com',
+    reasonLabel:'السبب (اختياري)', reasonPlaceholder:'أخبرنا لماذا تريد حذف حسابك...',
+    confirmLabel:'أفهم أن هذا الإجراء دائم ولا يمكن التراجع عنه وسيتم حذف جميع بياناتي.',
+    submitText:'طلب حذف الحساب',
+    alternative:'هل لديك أسئلة؟ راسلنا على <a href="mailto:nourappdigital@gmail.com">nourappdigital@gmail.com</a><br>نعالج جميع الطلبات في غضون 7 أيام.',
+    subject:'طلب حذف حساب — نور',
+    body:(e,r)=>`طلب حذف الحساب\n\nالبريد الإلكتروني: ${e}\nالسبب: ${r||'غير محدد'}\n\nأؤكد أنني أريد حذف حسابي وجميع بياناتي في نور نهائياً.`,
+  }
+};
+
+let lang = 'es';
+
+function setLang(l) {
+  lang = l;
+  const t = T[l];
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent === l.toUpperCase()));
+  document.getElementById('nav-back').textContent = t.back;
+  document.getElementById('main-title').textContent = t.title;
+  document.getElementById('main-subtitle').textContent = t.subtitle;
+  document.getElementById('in-app-text').innerHTML = t.inApp;
+  document.getElementById('warning-title').textContent = t.warningTitle;
+  document.getElementById('warning-list').innerHTML = t.warningItems.map(i=>`<li>${i}</li>`).join('');
+  document.getElementById('email-label').textContent = t.emailLabel;
+  document.getElementById('email-input').placeholder = t.emailPlaceholder;
+  document.getElementById('reason-label').textContent = t.reasonLabel;
+  document.getElementById('reason-input').placeholder = t.reasonPlaceholder;
+  document.getElementById('confirm-label').textContent = t.confirmLabel;
+  document.getElementById('submit-text').textContent = t.submitText;
+  document.getElementById('alternative-text').innerHTML = t.alternative;
+  document.documentElement.dir = l === 'ar' ? 'rtl' : 'ltr';
+}
+
+function updateBtn() {
+  const checked = document.getElementById('confirm-check').checked;
+  const email = document.getElementById('email-input').value.trim();
+  document.getElementById('submit-btn').disabled = !checked || !email;
+}
+
+document.getElementById('email-input').addEventListener('input', updateBtn);
+
+function submitRequest() {
+  const email = document.getElementById('email-input').value.trim();
+  const reason = document.getElementById('reason-input').value.trim();
+  const t = T[lang];
+  window.location.href = `mailto:nourappdigital@gmail.com?subject=${encodeURIComponent(t.subject)}&body=${encodeURIComponent(t.body(email, reason))}`;
+}
+
+const ul = navigator.language || 'es';
+setLang(ul.startsWith('ar') ? 'ar' : ul.startsWith('en') ? 'en' : 'es');
+</script>
+</body>
+</html>
