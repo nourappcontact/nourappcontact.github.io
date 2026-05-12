@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نور · Nour — Islamic Family App</title>
+<meta name="description" content="La primera app islámica diseñada para toda la familia. Rezos, tasbih, versículos del Corán y formación para tus hijos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --green-deep: #071e0d;
+    --green-dark: #0d2e15;
+    --teal: #3fb87a;
+    --teal-light: #6dcf9a;
+    --cream: #f0ebe0;
+    --cream-dim: #c8c0ae;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--green-deep); color: var(--cream); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1.2rem 4rem; display: flex; justify-content: space-between; align-items: center;
+    background: rgba(7,30,13,0.88); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(63,184,122,0.08);
+  }
+  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--teal-light); }
+  .lang-switcher { display: flex; gap: 0.5rem; }
+  .lang-btn {
+    background: none; border: 1px solid rgba(63,184,122,0.2); color: var(--cream-dim);
+    padding: 0.3rem 0.7rem; border-radius: 100px; font-size: 0.75rem; cursor: pointer;
+    transition: all 0.2s; font-family: 'DM Sans', sans-serif;
+  }
+  .lang-btn:hover, .lang-btn.active { background: rgba(63,184,122,0.1); color: var(--teal); border-color: var(--teal); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center; padding: 8rem 6rem 4rem; gap: 4rem;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(45,122,66,0.14) 0%, transparent 70%);
+    right: 0; top: 50%; transform: translateY(-50%); pointer-events: none;
+  }
+  .hero-arabic-bg {
+    position: absolute; font-size: 30rem; color: rgba(63,184,122,0.03);
+    font-family: 'Cormorant Garamond', serif; right: -2rem; top: 50%;
+    transform: translateY(-50%); pointer-events: none; user-select: none; line-height: 1;
+  }
+  .hero-content { position: relative; z-index: 2; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    border: 1px solid rgba(63,184,122,0.3); border-radius: 100px;
+    padding: 0.4rem 1rem; font-size: 0.72rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--teal); margin-bottom: 2rem;
+    animation: fadeUp 0.8s ease both;
+  }
+  .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); animation: pulse 2s infinite; }
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif; font-size: clamp(4rem, 7vw, 6.5rem);
+    font-weight: 300; line-height: 0.9; margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+  .hero-name .arabic { display: block; color: var(--teal-light); font-size: 0.55em; }
+  .hero-tagline {
+    font-size: 1rem; line-height: 1.75; color: var(--cream-dim); max-width: 400px;
+    margin-bottom: 2.5rem; animation: fadeUp 0.8s 0.2s ease both;
+  }
+  .hero-actions { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; animation: fadeUp 0.8s 0.3s ease both; }
+
+  /* BUTTONS */
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 0.7rem;
+    background: var(--teal); color: var(--green-deep); padding: 0.85rem 1.7rem;
+    border-radius: 100px; font-family: 'DM Sans', sans-serif; font-weight: 500;
+    font-size: 0.9rem; text-decoration: none; transition: all 0.25s ease;
+  }
+  .btn-primary:hover { background: var(--teal-light); transform: translateY(-2px); }
+  .btn-primary svg { width: 18px; height: 18px; }
+  .btn-cta {
+    display: inline-flex; align-items: center; gap: 0.7rem;
+    background: var(--teal); color: var(--green-deep); padding: 0.85rem 2rem;
+    border-radius: 100px; font-family: 'DM Sans', sans-serif; font-weight: 500;
+    font-size: 0.95rem; text-decoration: none; transition: all 0.25s ease;
+    margin-top: 2.5rem;
+  }
+  .btn-cta:hover { background: var(--teal-light); transform: translateY(-2px); }
+  .btn-cta svg { width: 18px; height: 18px; }
+  .cta-wrap { text-align: center; }
+
+  /* CAROUSEL */
+  .hero-visual { display: flex; justify-content: center; align-items: center; position: relative; z-index: 2; animation: fadeUp 0.8s 0.15s ease both; }
+  .carousel-wrap { position: relative; width: 260px; }
+  .carousel {
+    width: 260px; border-radius: 36px; border: 1.5px solid rgba(63,184,122,0.18);
+    overflow: hidden; box-shadow: 0 40px 80px rgba(0,0,0,0.7);
+    position: relative; aspect-ratio: 9/19;
+  }
+  .carousel-slides { display: flex; transition: transform 0.4s ease; height: 100%; }
+  .carousel-slide { min-width: 100%; height: 100%; }
+  .carousel-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .carousel-dots { display: flex; justify-content: center; gap: 6px; margin-top: 12px; }
+  .carousel-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(63,184,122,0.3); cursor: pointer; transition: all 0.2s; border: none; padding: 0; }
+  .carousel-dot.active { background: var(--teal); width: 18px; border-radius: 3px; }
+  .carousel-btn {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    background: rgba(7,30,13,0.7); border: 1px solid rgba(63,184,122,0.2);
+    color: var(--teal); width: 32px; height: 32px; border-radius: 50%;
+    cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center;
+    z-index: 10;
+  }
+  .carousel-btn.prev { left: -16px; }
+  .carousel-btn.next { right: -16px; }
+
+  /* SECTIONS */
+  .section-label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--teal); margin-bottom: 0.8rem; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 300; line-height: 1.1; margin-bottom: 3rem; }
+
+  /* FEATURES */
+  .features { padding: 6rem; }
+  .features-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px; background: rgba(63,184,122,0.07);
+    border: 1.5px solid rgba(63,184,122,0.07); border-radius: 24px; overflow: hidden;
+  }
+  .feature-item { background: var(--green-deep); padding: 2rem 1.8rem; transition: background 0.3s; }
+  .feature-item:hover { background: rgba(13,46,21,0.9); }
+  .feature-icon { font-size: 1.6rem; margin-bottom: 1rem; display: block; }
+  .feature-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; margin-bottom: 0.6rem; }
+  .feature-desc { font-size: 0.83rem; line-height: 1.7; color: var(--cream-dim); }
+
+  /* FORMATION */
+  .formation { padding: 6rem; background: var(--green-dark); }
+  .formation-intro { max-width: 600px; margin-bottom: 3rem; }
+  .formation-intro p { font-size: 0.95rem; color: var(--cream-dim); line-height: 1.8; }
+  .formation-levels { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  .level-card {
+    background: rgba(7,30,13,0.8); border: 1px solid rgba(63,184,122,0.1);
+    border-radius: 20px; padding: 1.5rem; transition: border-color 0.3s;
+  }
+  .level-card:hover { border-color: rgba(63,184,122,0.3); }
+  .level-num { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--teal); margin-bottom: 0.5rem; }
+  .level-title { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; margin-bottom: 0.8rem; }
+  .level-items { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; }
+  .level-items li { font-size: 0.8rem; color: var(--cream-dim); display: flex; gap: 0.5rem; align-items: flex-start; }
+  .level-items li::before { content: '·'; color: var(--teal); flex-shrink: 0; }
+
+  /* LEARNING FLOW */
+  .learning-flow { padding: 6rem; background: var(--green-deep); }
+  .flow-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-top: 3rem; position: relative; }
+  .flow-steps::before {
+    content: ''; position: absolute; top: 40px; left: 10%; right: 10%; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(63,184,122,0.3), transparent);
+  }
+  .flow-step { text-align: center; padding: 1.5rem 1rem; position: relative; }
+  .flow-step-num {
+    width: 56px; height: 56px; border-radius: 50%; margin: 0 auto 1rem;
+    background: rgba(63,184,122,0.08); border: 1.5px solid rgba(63,184,122,0.25);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--teal);
+  }
+  .flow-step-icon { font-size: 1.4rem; margin-bottom: 0.5rem; }
+  .flow-step-title { font-size: 0.88rem; font-weight: 500; margin-bottom: 0.5rem; color: var(--cream); }
+  .flow-step-desc { font-size: 0.78rem; color: var(--cream-dim); line-height: 1.6; }
+  .flow-highlight {
+    margin-top: 2.5rem; background: rgba(63,184,122,0.05);
+    border: 1px solid rgba(63,184,122,0.15); border-radius: 20px;
+    padding: 1.5rem 2rem; display: flex; gap: 1rem; align-items: flex-start;
+  }
+  .flow-highlight-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .flow-highlight-text { font-size: 0.88rem; color: var(--cream-dim); line-height: 1.7; }
+  .flow-highlight-text strong { color: var(--teal); font-weight: 500; }
+
+  /* FAMILY */
+  .family-section { padding: 6rem; }
+  .family-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .family-cards { display: flex; flex-direction: column; gap: 1rem; }
+  .family-card {
+    background: var(--green-dark); border: 1px solid rgba(63,184,122,0.1);
+    border-radius: 18px; padding: 1.4rem; display: flex; gap: 1rem; align-items: flex-start;
+  }
+  .family-card-icon { width: 40px; height: 40px; border-radius: 10px; background: rgba(63,184,122,0.08); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+  .family-card-title { font-size: 0.88rem; font-weight: 500; margin-bottom: 0.25rem; }
+  .family-card-desc { font-size: 0.78rem; color: var(--cream-dim); line-height: 1.6; }
+
+  /* PRICING */
+  .pricing { padding: 6rem; text-align: center; background: var(--green-dark); }
+  .price-card {
+    max-width: 400px; margin: 2.5rem auto 0; background: rgba(7,30,13,0.8);
+    border: 1px solid rgba(63,184,122,0.18); border-radius: 28px; padding: 2.5rem;
+    position: relative; overflow: hidden;
+  }
+  .price-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--teal), transparent); }
+  .price-tag { font-family: 'DM Sans', sans-serif; font-size: 4rem; font-weight: 300; color: var(--teal); line-height: 1; }
+  .price-period { font-size: 0.82rem; color: var(--cream-dim); margin-bottom: 2rem; }
+  .price-features { list-style: none; text-align: left; margin-bottom: 2rem; }
+  .price-features li { padding: 0.55rem 0; font-size: 0.85rem; color: var(--cream-dim); border-bottom: 1px solid rgba(255,255,255,0.04); display: flex; gap: 0.75rem; align-items: center; }
+  .price-features li::before { content: '✓'; color: var(--teal); font-weight: 500; flex-shrink: 0; }
+  .price-trial { font-size: 0.78rem; color: var(--teal-light); margin-top: 1rem; }
+
+  /* FAQ */
+  .faq-section { padding: 6rem; }
+  .faq-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .faq-group-title { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--teal); margin-bottom: 0.75rem; margin-top: 1.5rem; }
+  .faq-item { background: var(--green-dark); border: 1px solid rgba(63,184,122,0.08); border-radius: 14px; margin-bottom: 0.5rem; overflow: hidden; }
+  .faq-q { padding: 1rem 1.2rem; font-size: 0.88rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+  .faq-q:hover { background: rgba(63,184,122,0.04); }
+  .faq-icon { color: var(--teal); font-size: 1.1rem; flex-shrink: 0; transition: transform 0.2s; }
+  .faq-a { font-size: 0.83rem; color: var(--cream-dim); line-height: 1.7; padding: 0 1.2rem 1rem; display: none; }
+  .faq-item.open .faq-a { display: block; }
+  .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+  /* FOOTER */
+  footer { padding: 2.5rem 6rem; border-top: 1px solid rgba(63,184,122,0.07); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--teal-light); }
+  .footer-links { display: flex; gap: 2rem; }
+  .footer-links a { font-size: 0.78rem; color: var(--cream-dim); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--teal); }
+  .footer-copy { font-size: 0.72rem; color: rgba(200,192,174,0.3); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .hero { grid-template-columns: 1fr; padding: 6rem 2rem 3rem; text-align: center; }
+    .hero-visual { margin-top: 2rem; }
+    .hero-tagline { margin: 0 auto 2rem; }
+    .hero-actions { justify-content: center; }
+    .features, .formation, .family-section, .pricing, .faq-section { padding: 4rem 2rem; }
+    .features-grid, .formation-levels { grid-template-columns: 1fr; }
+    .family-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .faq-grid { grid-template-columns: 1fr; }
+    footer { padding: 2rem; flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">نور · Nour</div>
+  <div class="lang-switcher">
+    <button class="lang-btn" onclick="setLang('es')">ES</button>
+    <button class="lang-btn" onclick="setLang('ar')">AR</button>
+    <button class="lang-btn" onclick="setLang('en')">EN</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-arabic-bg">نور</div>
+  <div class="hero-content">
+    <div class="badge"><span class="badge-dot"></span><span data-t="badge"></span></div>
+    <h1 class="hero-name"><span class="arabic">نور</span>Nour</h1>
+    <p class="hero-tagline" data-t="tagline"></p>
+    <div class="hero-actions">
+      <a href="https://play.google.com/store/apps/details?id=com.nourdigital.app" class="btn-primary" target="_blank">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.4c.35.2.76.2 1.12.02l12.44-7.18-2.78-2.78L3.18 23.4zm-1.55-19.8C1.25 3.95 1 4.46 1 5.1v13.8c0 .64.25 1.15.63 1.5l.08.07 7.73-7.73v-.18L1.63 3.6l-.01.01zM19.46 10.56l-2.54-1.47-3.1 3.1 3.1 3.1 2.56-1.48c.73-.42.73-1.83-.02-2.25zM4.3.58L16.74 7.76l-2.78 2.78L3.18.6C3.54.42 3.95.42 4.3.58z"/></svg>
+        <span data-t="download"></span>
+      </a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="carousel-wrap">
+      <div class="carousel" id="carousel">
+        <div class="carousel-slides" id="slides">
+          <div class="carousel-slide"><img src="screen_panel_padres.jpg" alt="Panel padres"></div>
+          <div class="carousel-slide"><img src="screen_tasbih.jpg" alt="Tasbih"></div>
+          <div class="carousel-slide"><img src="screen_bismillah.jpg" alt="Formación"></div>
+          <div class="carousel-slide"><img src="screen_misiones.jpg" alt="Misiones"></div>
+          <div class="carousel-slide"><img src="screen_logros.jpg" alt="Logros"></div>
+          <div class="carousel-slide"><img src="screen_vocales.jpg" alt="Alfabeto"></div>
+        </div>
+      </div>
+      <button class="carousel-btn prev" onclick="moveCarousel(-1)">‹</button>
+      <button class="carousel-btn next" onclick="moveCarousel(1)">›</button>
+      <div class="carousel-dots" id="dots"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="section-label" data-t="feat_label"></div>
+  <h2 class="section-title" data-t="feat_title"></h2>
+  <div class="features-grid">
+    <div class="feature-item"><span class="feature-icon">🕌</span><div class="feature-title" data-t="f1_title"></div><p class="feature-desc" data-t="f1_desc"></p></div>
+    <div class="feature-item"><span class="feature-icon">📿</span><div class="feature-title" data-t="f2_title"></div><p class="feature-desc" data-t="f2_desc"></p></div>
+    <div class="feature-item"><span class="feature-icon">📖</span><div class="feature-title" data-t="f3_title"></div><p class="feature-desc" data-t="f3_desc"></p></div>
+    <div class="feature-item"><span class="feature-icon">👨‍👧</span><div class="feature-title" data-t="f4_title"></div><p class="feature-desc" data-t="f4_desc"></p></div>
+    <div class="feature-item"><span class="feature-icon">⭐</span><div class="feature-title" data-t="f5_title"></div><p class="feature-desc" data-t="f5_desc"></p></div>
+    <div class="feature-item"><span class="feature-icon">🚫</span><div class="feature-title" data-t="f6_title"></div><p class="feature-desc" data-t="f6_desc"></p></div>
+  </div>
+  <div class="cta-wrap">
+    <a href="https://play.google.com/store/apps/details?id=com.nourdigital.app" class="btn-cta" target="_blank">
+      <svg viewBox="0 0 24 24" fill="currentColor" style="width:16px;height:16px"><path d="M3.18 23.4c.35.2.76.2 1.12.02l12.44-7.18-2.78-2.78L3.18 23.4zm-1.55-19.8C1.25 3.95 1 4.46 1 5.1v13.8c0 .64.25 1.15.63 1.5l.08.07 7.73-7.73v-.18L1.63 3.6l-.01.01zM19.46 10.56l-2.54-1.47-3.1 3.1 3.1 3.1 2.56-1.48c.73-.42.73-1.83-.02-2.25zM4.3.58L16.74 7.76l-2.78 2.78L3.18.6C3.54.42 3.95.42 4.3.58z"/></svg>
+      <span data-t="cta_features"></span>
+    </a>
+  </div>
+</section>
+
+<!-- FORMATION -->
+<section class="formation">
+  <div class="section-label" data-t="form_label"></div>
+  <h2 class="section-title" data-t="form_title"></h2>
+  <div class="formation-intro"><p data-t="form_intro"></p></div>
+  <div class="formation-levels">
+    <div class="level-card">
+      <div class="level-num" data-t="lvl1_num"></div>
+      <div class="level-title" data-t="lvl1_title"></div>
+      <ul class="level-items" id="lvl1_items"></ul>
+    </div>
+    <div class="level-card">
+      <div class="level-num" data-t="lvl2_num"></div>
+      <div class="level-title" data-t="lvl2_title"></div>
+      <ul class="level-items" id="lvl2_items"></ul>
+    </div>
+    <div class="level-card">
+      <div class="level-num" data-t="lvl3_num"></div>
+      <div class="level-title" data-t="lvl3_title"></div>
+      <ul class="level-items" id="lvl3_items"></ul>
+    </div>
+    <div class="level-card">
+      <div class="level-num" data-t="lvl4_num"></div>
+      <div class="level-title" data-t="lvl4_title"></div>
+      <ul class="level-items" id="lvl4_items"></ul>
+    </div>
+    <div class="level-card">
+      <div class="level-num" data-t="lvl5_num"></div>
+      <div class="level-title" data-t="lvl5_title"></div>
+      <ul class="level-items" id="lvl5_items"></ul>
+    </div>
+    <div class="level-card">
+      <div class="level-num" data-t="lvl6_num"></div>
+      <div class="level-title" data-t="lvl6_title"></div>
+      <ul class="level-items" id="lvl6_items"></ul>
+    </div>
+  </div>
+  <div class="cta-wrap">
+    <a href="https://play.google.com/store/apps/details?id=com.nourdigital.app" class="btn-cta" target="_blank">
+      <svg viewBox="0 0 24 24" fill="currentColor" style="width:16px;height:16px"><path d="M3.18 23.4c.35.2.76.2 1.12.02l12.44-7.18-2.78-2.78L3.18 23.4zm-1.55-19.8C1.25 3.95 1 4.46 1 5.1v13.8c0 .64.25 1.15.63 1.5l.08.07 7.73-7.73v-.18L1.63 3.6l-.01.01zM19.46 10.56l-2.54-1.47-3.1 3.1 3.1 3.1 2.56-1.48c.73-.42.73-1.83-.02-2.25zM4.3.58L16.74 7.76l-2.78 2.78L3.18.6C3.54.42 3.95.42 4.3.58z"/></svg>
+      <span data-t="cta_formation"></span>
+    </a>
+  </div>
+</section>
+
+<!-- LEARNING FLOW -->
+<section class="learning-flow">
+  <div class="section-label" data-t="flow_label"></div>
+  <h2 class="section-title" data-t="flow_title"></h2>
+  <div class="flow-steps">
+    <div class="flow-step">
+      <div class="flow-step-num">1</div>
+      <div class="flow-step-icon">📖</div>
+      <div class="flow-step-title" data-t="flow1_title"></div>
+      <div class="flow-step-desc" data-t="flow1_desc"></div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-step-num">2</div>
+      <div class="flow-step-icon">✋</div>
+      <div class="flow-step-title" data-t="flow2_title"></div>
+      <div class="flow-step-desc" data-t="flow2_desc"></div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-step-num">3</div>
+      <div class="flow-step-icon">⭐</div>
+      <div class="flow-step-title" data-t="flow3_title"></div>
+      <div class="flow-step-desc" data-t="flow3_desc"></div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-step-num">4</div>
+      <div class="flow-step-icon">✅</div>
+      <div class="flow-step-title" data-t="flow4_title"></div>
+      <div class="flow-step-desc" data-t="flow4_desc"></div>
+    </div>
+  </div>
+  <div class="flow-highlight">
+    <div class="flow-highlight-icon">🔑</div>
+    <div class="flow-highlight-text" id="flow-key-text"></div>
+  </div>
+  <div class="cta-wrap">
+    <a href="https://play.google.com/store/apps/details?id=com.nourdigital.app" class="btn-cta" target="_blank">
+      <svg viewBox="0 0 24 24" fill="currentColor" style="width:16px;height:16px"><path d="M3.18 23.4c.35.2.76.2 1.12.02l12.44-7.18-2.78-2.78L3.18 23.4zm-1.55-19.8C1.25 3.95 1 4.46 1 5.1v13.8c0 .64.25 1.15.63 1.5l.08.07 7.73-7.73v-.18L1.63 3.6l-.01.01zM19.46 10.56l-2.54-1.47-3.1 3.1 3.1 3.1 2.56-1.48c.73-.42.73-1.83-.02-2.25zM4.3.58L16.74 7.76l-2.78 2.78L3.18.6C3.54.42 3.95.42 4.3.58z"/></svg>
+      <span data-t="cta_flow"></span>
+    </a>
+  </div>
+</section>
+
+<!-- FAMILY -->
+<section class="family-section">
+  <div class="family-inner">
+    <div>
+      <div class="section-label" data-t="fam_label"></div>
+      <h2 class="section-title" data-t="fam_title"></h2>
+      <p style="color:var(--cream-dim);line-height:1.8;font-size:0.93rem;max-width:380px;" data-t="fam_desc"></p>
+    </div>
+    <div class="family-cards">
+      <div class="family-card"><div class="family-card-icon">🔑</div><div><div class="family-card-title" data-t="fc1_title"></div><div class="family-card-desc" data-t="fc1_desc"></div></div></div>
+      <div class="family-card"><div class="family-card-icon">📊</div><div><div class="family-card-title" data-t="fc2_title"></div><div class="family-card-desc" data-t="fc2_desc"></div></div></div>
+      <div class="family-card"><div class="family-card-icon">✅</div><div><div class="family-card-title" data-t="fc3_title"></div><div class="family-card-desc" data-t="fc3_desc"></div></div></div>
+    </div>
+  </div>
+  <div class="cta-wrap">
+    <a href="https://play.google.com/store/apps/details?id=com.nourdigital.app" class="btn-cta" target="_blank">
+      <svg viewBox="0 0 24 24" fill="currentColor" style="width:16px;height:16px"><path d="M3.18 23.4c.35.2.76.2 1.12.02l12.44-7.18-2.78-2.78L3.18 23.4zm-1.55-19.8C1.25 3.95 1 4.46 1 5.1v13.8c0 .64.25 1.15.63 1.5l.08.07 7.73-7.73v-.18L1.63 3.6l-.01.01zM19.46 10.56l-2.54-1.47-3.1 3.1 3.1 3.1 2.56-1.48c.73-.42.73-1.83-.02-2.25zM4.3.58L16.74 7.76l-2.78 2.78L3.18.6C3.54.42 3.95.42 4.3.58z"/></svg>
+      <span data-t="cta_family"></span>
+    </a>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing">
+  <div class="section-label" data-t="price_label"></div>
+  <h2 class="section-title" data-t="price_title"></h2>
+  <div class="price-card">
+    <div class="price-tag">1,99€</div>
+    <div class="price-period" data-t="price_period"></div>
+    <ul class="price-features">
+      <li data-t="pf1"></li><li data-t="pf2"></li><li data-t="pf3"></li>
+      <li data-t="pf4"></li><li data-t="pf5"></li><li data-t="pf6"></li>
+    </ul>
+    <a href="https://play.google.com/store/apps/details?id=com.nourdigital.app" class="btn-primary" style="width:100%;justify-content:center;" target="_blank">
+      <svg viewBox="0 0 24 24" fill="currentColor" style="width:16px;height:16px"><path d="M3.18 23.4c.35.2.76.2 1.12.02l12.44-7.18-2.78-2.78L3.18 23.4zm-1.55-19.8C1.25 3.95 1 4.46 1 5.1v13.8c0 .64.25 1.15.63 1.5l.08.07 7.73-7.73v-.18L1.63 3.6l-.01.01zM19.46 10.56l-2.54-1.47-3.1 3.1 3.1 3.1 2.56-1.48c.73-.42.73-1.83-.02-2.25zM4.3.58L16.74 7.76l-2.78 2.78L3.18.6C3.54.42 3.95.42 4.3.58z"/></svg>
+      <span data-t="download"></span>
+    </a>
+    <div class="price-trial" data-t="trial"></div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="section-label" data-t="faq_label"></div>
+  <h2 class="section-title" data-t="faq_title"></h2>
+  <div class="faq-grid" id="faq-container"></div>
+</section>
+
+<footer>
+  <div class="footer-logo">نور · Nour</div>
+  <div class="footer-links">
+    <a href="https://nourappcontact.github.io/nour-privacy/" data-t="privacy"></a>
+    <a href="https://nourappcontact.github.io/nour-terms/" data-t="terms"></a>
+    <a href="mailto:nourappdigital@gmail.com" data-t="contact"></a>
+  </div>
+  <div class="footer-copy">© 2026 Nour Digital</div>
+</footer>
+
+<script>
+// ── CAROUSEL ────────────────────────────────────────────────────────────────
+let current = 0;
+const total = 6;
+const slidesEl = document.getElementById('slides');
+const dotsEl = document.getElementById('dots');
+
+for (let i = 0; i < total; i++) {
+  const d = document.createElement('button');
+  d.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+  d.onclick = () => goTo(i);
+  dotsEl.appendChild(d);
+}
+
+function goTo(n) {
+  current = (n + total) % total;
+  slidesEl.style.transform = `translateX(-${current * 100}%)`;
+  document.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+}
+function moveCarousel(dir) { goTo(current + dir); }
+setInterval(() => moveCarousel(1), 3500);
+
+// ── TRANSLATIONS ─────────────────────────────────────────────────────────────
+const T = {
+  es: {
+    badge:"App islámica familiar", tagline:"Rezos, tasbih, 1.000 versículos del Corán y formación islámica para tus hijos — todo en una sola app, sin anuncios.", download:"Descargar en Google Play",
+    feat_label:"Características", feat_title:"Todo lo que necesita tu familia",
+    f1_title:"Tiempos de rezo", f1_desc:"Horas precisas por GPS con los 6 rezos del día. 10 métodos de cálculo reconocidos.",
+    f2_title:"Tasbih digital", f2_desc:"Contador con modos 33, 99 y libre. Estadísticas diarias de tus dhikrs.",
+    f3_title:"1.000 versículos del Corán", f3_desc:"Organizados por tema: paz, paciencia, gratitud, amor, familia y mucho más.",
+    f4_title:"Panel de padres", f4_desc:"Seguimiento diario de los rezos de cada hijo. Notificación al aprender algo nuevo.",
+    f5_title:"Modo Nour Jr.", f5_desc:"Formación islámica progresiva para niños con estrellas, avatares y logros.",
+    f6_title:"Sin anuncios", f6_desc:"Experiencia limpia y tranquila. Sin distracciones. Tu privacidad, protegida.",
+    form_label:"Formación islámica", form_title:"Tu hijo aprenderá...",
+    form_intro:"Un currículo islámico completo, progresivo y gamificado. Cada elemento se desbloquea al completar el anterior. El padre valida presencialmente cada logro.",
+    lvl1_num:"Nivel 1", lvl1_title:"Primeras palabras",
+    lvl2_num:"Nivel 2", lvl2_title:"Al-Fatiha completa",
+    lvl3_num:"Nivel 3", lvl3_title:"El rezo completo",
+    lvl4_num:"Nivel 4", lvl4_title:"Suras cortas",
+    lvl5_num:"Nivel 5", lvl5_title:"Los 99 nombres de Allah",
+    lvl6_num:"Nivel 6", lvl6_title:"Los pilares del Islam",
+    fam_label:"Sistema familiar", fam_title:"El padre conectado con el hijo",
+    fam_desc:"El padre genera un código desde su panel. El hijo lo introduce en su dispositivo. Cada uno tiene su propia experiencia adaptada, sincronizada en tiempo real.",
+    fc1_title:"Código de vinculación", fc1_desc:"El padre genera un código de 6 caracteres para cada hijo. Simple y seguro.",
+    fc2_title:"Seguimiento en tiempo real", fc2_desc:"Visualiza los rezos y el progreso de formación de cada hijo día a día.",
+    fc3_title:"Validación presencial", fc3_desc:"El padre confirma personalmente el aprendizaje del hijo desde su panel.",
+    price_label:"Precio", price_title:"Simple y justo", price_period:"al mes · Plan Familia",
+    pf1:"Modo Nour Jr. para hijos (hasta 5)", pf2:"Panel de seguimiento para padres",
+    pf3:"Tiempos de rezo precisos por GPS", pf4:"Tasbih digital con estadísticas",
+    pf5:"1.000 versículos del Corán", pf6:"Sin anuncios en toda la app",
+    trial:"5 días de prueba gratis · Sin compromiso",
+    cta_features:"Quiero esta app", cta_formation:"Empieza gratis hoy", cta_family:"Conecta con tus hijos",
+    flow_label:"Cómo funciona el aprendizaje", flow_title:"El sistema que ninguna app tiene",
+    flow1_title:"El niño estudia", flow1_desc:"A su ritmo, con el contenido islámico de la app. Visualiza el texto árabe, la transliteración y el significado.",
+    flow2_title:"Cree que lo sabe", flow2_desc:"Pulsa 'Ya lo sé' y se lanza un quiz. Tiene que superar el 70% para continuar.",
+    flow3_title:"Supera el quiz", flow3_desc:"Si aprueba, el padre recibe una notificación: 'Tu hijo ha superado el quiz de Bismillah'.",
+    flow4_title:"El padre valida", flow4_desc:"El padre le pregunta en persona. Si está listo, valida desde su panel y el niño recibe su estrella.",
+    flow_key:"<strong>¿Por qué es diferente?</strong> El niño no puede avanzar sin superar un quiz real. El padre no recibe notificaciones si el hijo no aprueba. La validación humana es el último paso — nadie puede hacer trampa.",
+    cta_flow:"Ver cómo funciona",
+    faq_label:"Preguntas frecuentes", faq_title:"¿Tienes dudas?",
+    privacy:"Política de privacidad", terms:"Términos de uso", contact:"Contacto"
+  },
+  en: {
+    badge:"Islamic family app", tagline:"Prayer times, tasbih, 1,000 Quran verses and Islamic learning for your children — all in one app, ad-free.", download:"Download on Google Play",
+    feat_label:"Features", feat_title:"Everything your family needs",
+    f1_title:"Prayer times", f1_desc:"Accurate GPS-based times for all 6 daily prayers. 10 recognized calculation methods.",
+    f2_title:"Digital tasbih", f2_desc:"Counter with 33, 99 and free modes. Daily dhikr statistics.",
+    f3_title:"1,000 Quran verses", f3_desc:"Organized by theme: peace, patience, gratitude, love, family and much more.",
+    f4_title:"Parent dashboard", f4_desc:"Daily tracking of each child's prayers. Instant notification when they learn something new.",
+    f5_title:"Nour Jr. mode", f5_desc:"Progressive Islamic learning for children with stars, avatars and achievements.",
+    f6_title:"Ad-free", f6_desc:"Clean and calm experience. No distractions. Your privacy, protected.",
+    form_label:"Islamic learning", form_title:"Your child will learn...",
+    form_intro:"A complete, progressive and gamified Islamic curriculum. Each element unlocks after completing the previous one. The parent validates each achievement in person.",
+    lvl1_num:"Level 1", lvl1_title:"First words",
+    lvl2_num:"Level 2", lvl2_title:"Complete Al-Fatiha",
+    lvl3_num:"Level 3", lvl3_title:"Complete prayer",
+    lvl4_num:"Level 4", lvl4_title:"Short surahs",
+    lvl5_num:"Level 5", lvl5_title:"The 99 names of Allah",
+    lvl6_num:"Level 6", lvl6_title:"The pillars of Islam",
+    fam_label:"Family system", fam_title:"Parent connected with child",
+    fam_desc:"The parent generates a code from their dashboard. The child enters it on their device. Each has their own tailored experience, synced in real time.",
+    fc1_title:"Linking code", fc1_desc:"The parent generates a 6-character code for each child. Simple and secure.",
+    fc2_title:"Real-time tracking", fc2_desc:"View each child's prayers and learning progress day by day.",
+    fc3_title:"In-person validation", fc3_desc:"The parent personally confirms the child's learning from their dashboard.",
+    price_label:"Pricing", price_title:"Simple and fair", price_period:"per month · Family Plan",
+    pf1:"Nour Jr. mode for children (up to 5)", pf2:"Parent tracking dashboard",
+    pf3:"Accurate GPS prayer times", pf4:"Digital tasbih with statistics",
+    pf5:"1,000 Quran verses", pf6:"Ad-free throughout the app",
+    trial:"5-day free trial · No commitment",
+    cta_features:"I want this app", cta_formation:"Start free today", cta_family:"Connect with your children",
+    flow_label:"How learning works", flow_title:"The system no other app has",
+    flow1_title:"The child studies", flow1_desc:"At their own pace, with the app's Islamic content. They see the Arabic text, transliteration and meaning.",
+    flow2_title:"They think they know it", flow2_desc:"They tap 'I know it' and a quiz begins. They must score 70% or higher to proceed.",
+    flow3_title:"They pass the quiz", flow3_desc:"If they pass, the parent receives a notification: 'Your child passed the Bismillah quiz'.",
+    flow4_title:"The parent validates", flow4_desc:"The parent asks them in person. If ready, they validate from their dashboard and the child earns their star.",
+    flow_key:"<strong>Why is it different?</strong> The child cannot advance without passing a real quiz. The parent receives no notifications if the child fails. Human validation is the final step — no one can cheat.",
+    cta_flow:"See how it works",
+    faq_label:"FAQ", faq_title:"Got questions?",
+    privacy:"Privacy policy", terms:"Terms of use", contact:"Contact"
+  },
+  ar: {
+    badge:"تطبيق إسلامي عائلي", tagline:"أوقات الصلاة، التسبيح، ١٠٠٠ آية قرآنية وتعليم إسلامي لأطفالك — كل شيء في تطبيق واحد، بدون إعلانات.", download:"تحميل على Google Play",
+    feat_label:"المميزات", feat_title:"كل ما تحتاجه عائلتك",
+    f1_title:"أوقات الصلاة", f1_desc:"أوقات دقيقة بالـ GPS للصلوات الست اليومية. ١٠ طرق حساب معتمدة.",
+    f2_title:"مسبحة رقمية", f2_desc:"عداد بأوضاع ٣٣ و٩٩ وحر. إحصائيات يومية لأذكارك.",
+    f3_title:"١٠٠٠ آية قرآنية", f3_desc:"مصنفة حسب الموضوع: السلام، الصبر، الشكر، الحب، العائلة والمزيد.",
+    f4_title:"لوحة الوالدين", f4_desc:"متابعة يومية لصلوات كل طفل. إشعار فوري عند تعلم شيء جديد.",
+    f5_title:"وضع نور Jr", f5_desc:"تعليم إسلامي تدريجي للأطفال مع نجوم وأبطال وإنجازات.",
+    f6_title:"بدون إعلانات", f6_desc:"تجربة هادئة ونظيفة. بدون تشتيت. خصوصيتك محمية.",
+    form_label:"التعليم الإسلامي", form_title:"سيتعلم طفلك...",
+    form_intro:"منهج إسلامي متكامل وتدريجي وممتع. كل عنصر يُفتح بعد إتمام السابق. الوالد يتحقق شخصياً من كل إنجاز.",
+    lvl1_num:"المستوى ١", lvl1_title:"أول الكلمات",
+    lvl2_num:"المستوى ٢", lvl2_title:"الفاتحة كاملة",
+    lvl3_num:"المستوى ٣", lvl3_title:"الصلاة كاملة",
+    lvl4_num:"المستوى ٤", lvl4_title:"السور القصيرة",
+    lvl5_num:"المستوى ٥", lvl5_title:"أسماء الله الحسنى",
+    lvl6_num:"المستوى ٦", lvl6_title:"أركان الإسلام",
+    fam_label:"النظام العائلي", fam_title:"الوالد متصل بالطفل",
+    fam_desc:"يقوم الوالد بإنشاء رمز من لوحة التحكم. يدخله الطفل على جهازه. كل منهم لديه تجربته الخاصة المتزامنة في الوقت الفعلي.",
+    fc1_title:"رمز الربط", fc1_desc:"يولّد الوالد رمزاً من ٦ أحرف لكل طفل. بسيط وآمن.",
+    fc2_title:"متابعة في الوقت الفعلي", fc2_desc:"تابع صلوات كل طفل وتقدم تعلمه يوماً بيوم.",
+    fc3_title:"تحقق شخصي", fc3_desc:"يؤكد الوالد شخصياً تعلم الطفل من لوحة التحكم.",
+    price_label:"السعر", price_title:"بسيط وعادل", price_period:"شهرياً · خطة العائلة",
+    pf1:"وضع نور Jr للأطفال (حتى ٥)", pf2:"لوحة متابعة للوالدين",
+    pf3:"أوقات صلاة دقيقة بالـ GPS", pf4:"مسبحة رقمية مع إحصائيات",
+    pf5:"١٠٠٠ آية قرآنية", pf6:"بدون إعلانات في التطبيق",
+    trial:"٥ أيام تجريبية مجانية · بدون التزام",
+    cta_features:"أريد هذا التطبيق", cta_formation:"ابدأ مجاناً اليوم", cta_family:"تواصل مع أطفالك",
+    flow_label:"كيف يعمل التعلم", flow_title:"النظام الذي لا يوجد في أي تطبيق آخر",
+    flow1_title:"الطفل يدرس", flow1_desc:"بالسرعة التي يريدها، مع محتوى التطبيق الإسلامي. يرى النص العربي والنطق والمعنى.",
+    flow2_title:"يعتقد أنه يعرف", flow2_desc:"يضغط 'أعرفه' ويبدأ اختبار. يجب أن يحصل على 70% على الأقل للمتابعة.",
+    flow3_title:"يجتاز الاختبار", flow3_desc:"إذا نجح، يتلقى الوالد إشعاراً: 'اجتاز طفلك اختبار البسملة'.",
+    flow4_title:"الوالد يتحقق", flow4_desc:"يسأله الوالد شخصياً. إذا كان مستعداً، يؤكد من لوحته ويحصل الطفل على نجمته.",
+    flow_key:"<strong>لماذا هو مختلف؟</strong> لا يمكن للطفل التقدم دون اجتياز اختبار حقيقي. الوالد لا يتلقى إشعارات إذا رسب الطفل. التحقق البشري هو الخطوة الأخيرة — لا أحد يستطيع الغش.",
+    cta_flow:"اكتشف كيف يعمل",
+    faq_label:"الأسئلة الشائعة", faq_title:"هل لديك أسئلة؟",
+    privacy:"سياسة الخصوصية", terms:"شروط الاستخدام", contact:"تواصل معنا"
+  }
+};
+
+const LEVELS = {
+  es: [
+    ["Bismillah", "Takbir — Allahu Akbar", "La Shahada", "Salawat", "Tasbih básico", "Duas diarias (comer, dormir, despertar, salir)"],
+    ["Introducción a Al-Fatiha", "Versículo 1 — Bismillah", "Versículo 2 — Alhamdu lillah", "Versículo 3 — Ar-Rahman", "Versículo 4 — Maliki yawm", "Versículo 5 — Iyyaka nabudu", "Versículo 6 — Ihdina", "Versículo 7 — Sirat alladhina"],
+    ["Dikrs del rezo (ruku y sujud)", "Tashahhud completo", "Dua al terminar el rezo", "Dhikr post-rezo 33+33+34", "Ayat al-Kursi"],
+    ["Al-Ikhlas", "Al-Falaq", "An-Nas", "Al-Kawthar", "Al-Asr", "An-Nasr"],
+    ["Introducción a los 99 nombres", "Nombres 1–6: Los esenciales", "Nombres 7–18: Poder y eternidad", "Nombres 19–45: Grandeza y sabiduría", "Nombres 46–72: Lo oculto y la luz", "Nombres 73–99: La compasión"],
+    ["Los 5 pilares del Islam", "Zakat — El tercer pilar", "Sawm — El cuarto pilar", "Hajj — El quinto pilar", "Los 6 artículos de fe"]
+  ],
+  en: [
+    ["Bismillah", "Takbir — Allahu Akbar", "The Shahada", "Salawat", "Basic Tasbih", "Daily duas (eating, sleeping, waking, leaving)"],
+    ["Introduction to Al-Fatiha", "Verse 1 — Bismillah", "Verse 2 — Alhamdu lillah", "Verse 3 — Ar-Rahman", "Verse 4 — Maliki yawm", "Verse 5 — Iyyaka nabudu", "Verse 6 — Ihdina", "Verse 7 — Sirat alladhina"],
+    ["Prayer dhikrs (ruku and sujud)", "Complete Tashahhud", "Dua after prayer", "Post-prayer dhikr 33+33+34", "Ayat al-Kursi"],
+    ["Al-Ikhlas", "Al-Falaq", "An-Nas", "Al-Kawthar", "Al-Asr", "An-Nasr"],
+    ["Introduction to the 99 names", "Names 1–6: The essential", "Names 7–18: Power and eternity", "Names 19–45: Greatness and wisdom", "Names 46–72: The hidden and the light", "Names 73–99: Compassion"],
+    ["The 5 pillars of Islam", "Zakat — The third pillar", "Sawm — The fourth pillar", "Hajj — The fifth pillar", "The 6 articles of faith"]
+  ],
+  ar: [
+    ["البسملة", "التكبير — الله أكبر", "الشهادة", "الصلاة على النبي", "التسبيح الأساسي", "أدعية يومية (الأكل، النوم، الاستيقاظ، الخروج)"],
+    ["مقدمة الفاتحة", "الآية ١ — البسملة", "الآية ٢ — الحمد لله", "الآية ٣ — الرحمن الرحيم", "الآية ٤ — مالك يوم الدين", "الآية ٥ — إياك نعبد", "الآية ٦ — اهدنا", "الآية ٧ — صراط الذين"],
+    ["أذكار الصلاة (الركوع والسجود)", "التشهد كاملاً", "دعاء بعد الصلاة", "أذكار ما بعد الصلاة ٣٣+٣٣+٣٤", "آية الكرسي"],
+    ["الإخلاص", "الفلق", "الناس", "الكوثر", "العصر", "النصر"],
+    ["مقدمة الأسماء الحسنى", "الأسماء ١–٦: الأساسية", "الأسماء ٧–١٨: القوة والأبدية", "الأسماء ١٩–٤٥: العظمة والحكمة", "الأسماء ٤٦–٧٢: الباطن والنور", "الأسماء ٧٣–٩٩: الرحمة"],
+    ["أركان الإسلام الخمسة", "الزكاة — الركن الثالث", "الصوم — الركن الرابع", "الحج — الركن الخامس", "أركان الإيمان الستة"]
+  ]
+};
+
+const FAQ = {
+  es: [
+    { section: 'General', items: [
+      { q: '¿Qué es Nour?', a: 'Nour es una app islámica familiar con dos modos: uno para el padre con tasbih, tiempos de rezo y versículos del Corán, y otro para el hijo con aprendizaje islámico gamificado y seguimiento de rezos.' },
+      { q: '¿Es gratuita?', a: 'Sí. Nour es completamente gratuita y sin anuncios. El modo Familiar (نور Jr.) requiere una suscripción gestionada desde Google Play.' },
+      { q: '¿Está disponible en más idiomas?', a: 'Sí, en árabe, español e inglés. Puedes cambiar el idioma en Ajustes.' },
+    ]},
+    { section: 'Modo hijo y código', items: [
+      { q: '¿Cómo accede mi hijo?', a: 'Desde tu panel de padres pulsa "Generar código" junto al perfil de tu hijo. Se genera un código de 6 dígitos válido 15 minutos. Tu hijo lo introduce en su dispositivo.' },
+      { q: '¿El código es de un solo uso?', a: 'Sí. Cada código es válido una sola vez y caduca a los 15 minutos. Si caduca, genera uno nuevo desde el panel.' },
+      { q: '¿Qué significa "pendiente de validar"?', a: 'Cuando tu hijo marca algo como aprendido te avisa para que lo valides. Puedes confirmar que realmente lo sabe o pedirle que lo repase.' },
+    ]},
+    { section: 'Suscripción y pagos', items: [
+      { q: '¿Cómo activo el modo Familiar?', a: 'Desde la pantalla de planes dentro de la app, elige el plan Familiar y completa el pago a través de Google Play.' },
+      { q: '¿Cómo cancelo la suscripción?', a: 'Puedes cancelar en cualquier momento desde Google Play → Suscripciones. El acceso se mantiene hasta el final del período pagado.' },
+      { q: '¿Tengo un código promocional, dónde lo introduzco?', a: 'Ve a Ajustes → Cuenta → "Tengo un código promocional".' },
+    ]},
+    { section: 'Técnico y privacidad', items: [
+      { q: '¿Qué datos recoge Nour?', a: 'Solo los necesarios: tu email para la cuenta, tu ubicación aproximada para los tiempos de rezo, y la actividad de rezos y formación de tus hijos. Nunca compartimos datos con terceros.' },
+      { q: '¿Funciona sin conexión?', a: 'El tasbih y los versículos guardados funcionan sin conexión. Los tiempos de rezo y el seguimiento de hijos requieren conexión.' },
+    ]},
+  ],
+  en: [
+    { section: 'General', items: [
+      { q: 'What is Nour?', a: 'Nour is a family Islamic app with two modes: one for parents with tasbih, prayer times and Quranic verses, and one for children with gamified Islamic learning and prayer tracking.' },
+      { q: 'Is it free?', a: 'Yes. Nour is completely free with no ads. Family mode (نور Jr.) requires a paid subscription managed through Google Play.' },
+      { q: 'Is it available in other languages?', a: 'Yes, in Arabic, Spanish and English. You can change the language in Settings.' },
+    ]},
+    { section: 'Child mode and access code', items: [
+      { q: 'How does my child access the app?', a: 'From your parent dashboard, tap "Generate code" next to your child\'s profile. A 6-digit code valid for 15 minutes is generated. Your child enters it on their device.' },
+      { q: 'Is the code single-use?', a: 'Yes. Each code is valid once only and expires after 15 minutes. If it expires, generate a new one from the dashboard.' },
+      { q: 'What does "pending validation" mean?', a: 'When your child marks a learning element as learned, it notifies you to validate it. You can confirm they know it or ask them to review it.' },
+    ]},
+    { section: 'Subscription and payments', items: [
+      { q: 'How do I activate Family mode?', a: 'From the plans screen inside the app, choose the Family plan and complete payment through Google Play.' },
+      { q: 'How do I cancel my subscription?', a: 'You can cancel at any time from Google Play → Subscriptions. Access continues until the end of the paid period.' },
+      { q: 'I have a promo code, where do I enter it?', a: 'Go to Settings → Account → "I have a promo code".' },
+    ]},
+    { section: 'Technical and privacy', items: [
+      { q: 'What data does Nour collect?', a: 'Only what is necessary: your email for the account, your approximate location for prayer times, and your children\'s prayer and learning activity. We never share data with third parties.' },
+      { q: 'Does it work offline?', a: 'Tasbih and saved verses work offline. Prayer times and child tracking require a connection.' },
+    ]},
+  ],
+  ar: [
+    { section: 'عام', items: [
+      { q: 'ما هو تطبيق نور؟', a: 'نور هو تطبيق إسلامي عائلي. يحتوي على وضعين: وضع للوالد مع المسبحة وأوقات الصلاة والآيات القرآنية، ووضع للطفل مع التعليم الإسلامي التفاعلي ومتابعة الصلوات.' },
+      { q: 'هل التطبيق مجاني؟', a: 'نعم. نور مجاني تماماً وبدون إعلانات. وضع العائلة (نور Jr.) يتطلب اشتراكاً يمكن إدارته من Google Play.' },
+      { q: 'هل التطبيق متاح بلغات أخرى؟', a: 'نعم، التطبيق متاح بالعربية والإسبانية والإنجليزية. يمكنك تغيير اللغة من الإعدادات.' },
+    ]},
+    { section: 'وضع الطفل ورمز الدخول', items: [
+      { q: 'كيف يدخل طفلي إلى التطبيق؟', a: 'من لوحة تحكم الوالدين، اضغط "إنشاء رمز الدخول" بجانب ملف طفلك. يتولّد رمز مكوّن من ٦ أرقام صالح لـ ١٥ دقيقة. يدخله طفلك في جهازه.' },
+      { q: 'هل الرمز للاستخدام مرة واحدة؟', a: 'نعم. كل رمز صالح مرة واحدة فقط وينتهي بعد ١٥ دقيقة. إذا انتهت صلاحيته، أنشئ رمزاً جديداً من اللوحة.' },
+      { q: 'ماذا يعني "في انتظار التحقق"؟', a: 'عندما يُعلّم طفلك عنصراً تعليمياً كمتعلَّم، يُخطرك لتتحقق منه. يمكنك تأكيد أنه يعرفه فعلاً أو طلب مراجعته.' },
+    ]},
+    { section: 'الاشتراك والمدفوعات', items: [
+      { q: 'كيف أفعّل وضع العائلة؟', a: 'من شاشة الخطط داخل التطبيق، اختر الخطة العائلية وأكمل الدفع عبر Google Play.' },
+      { q: 'كيف أُلغي الاشتراك؟', a: 'يمكنك الإلغاء في أي وقت من Google Play ← الاشتراكات. يستمر الوصول حتى نهاية الفترة المدفوعة.' },
+      { q: 'لديّ رمز ترويجي، أين أدخله؟', a: 'اذهب إلى الإعدادات ← الحساب ← "لديّ رمز ترويجي" وأدخله هناك.' },
+    ]},
+    { section: 'التقني والخصوصية', items: [
+      { q: 'ما البيانات التي يجمعها نور؟', a: 'فقط الضرورية: بريدك الإلكتروني للحساب، موقعك التقريبي لحساب أوقات الصلاة، ونشاط صلوات وتعلّم أطفالك. لا نشارك البيانات مع أطراف ثالثة أبداً.' },
+      { q: 'هل يعمل التطبيق بدون إنترنت؟', a: 'المسبحة والآيات المحفوظة تعمل بدون إنترنت. أوقات الصلاة ومتابعة الأطفال تحتاج اتصالاً.' },
+    ]},
+  ]
+};
+
+function renderFAQ(lang) {
+  const container = document.getElementById('faq-container');
+  const data = FAQ[lang] || FAQ.es;
+  const col1 = data.slice(0, 2);
+  const col2 = data.slice(2);
+  const renderCol = (sections) => sections.map(group => `
+    <div class="faq-group">
+      <div class="faq-group-title">${group.section}</div>
+      ${group.items.map(item => `
+        <div class="faq-item" onclick="this.classList.toggle('open')">
+          <div class="faq-q">${item.q}<span class="faq-icon">+</span></div>
+          <div class="faq-a">${item.a}</div>
+        </div>
+      `).join('')}
+    </div>
+  `).join('');
+  container.innerHTML = `<div>${renderCol(col1)}</div><div>${renderCol(col2)}</div>`;
+}
+
+function renderLevels(lang) {
+  const levels = LEVELS[lang] || LEVELS.es;
+  levels.forEach((items, i) => {
+    const el = document.getElementById(`lvl${i+1}_items`);
+    if (el) el.innerHTML = items.map(item => `<li>${item}</li>`).join('');
+  });
+}
+
+function setLang(lang) {
+  const t = T[lang];
+  document.querySelectorAll('[data-t]').forEach(el => {
+    const k = el.getAttribute('data-t');
+    if (t[k] !== undefined) el.textContent = t[k];
+  });
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent === lang.toUpperCase()));
+  renderFAQ(lang);
+  renderLevels(lang);
+  const fk = document.getElementById('flow-key-text');
+  if (fk && t.flow_key) fk.innerHTML = t.flow_key;
+}
+
+const ul = navigator.language || 'es';
+setLang(ul.startsWith('ar') ? 'ar' : ul.startsWith('en') ? 'en' : 'es');
+</script>
+</body>
+</html>
