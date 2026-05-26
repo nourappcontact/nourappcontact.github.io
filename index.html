@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -22,7 +22,6 @@
   html { scroll-behavior: smooth; }
   body { background: var(--green-deep); color: var(--cream); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; }
 
-  /* NAV */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     padding: 1.2rem 4rem; display: flex; justify-content: space-between; align-items: center;
@@ -38,7 +37,6 @@
   }
   .lang-btn:hover, .lang-btn.active { background: rgba(63,184,122,0.1); color: var(--teal); border-color: var(--teal); }
 
-  /* HERO */
   .hero {
     min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr;
     align-items: center; padding: 8rem 6rem 4rem; gap: 4rem;
@@ -75,7 +73,6 @@
   }
   .hero-actions { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; animation: fadeUp 0.8s 0.3s ease both; }
 
-  /* BUTTONS */
   .btn-primary {
     display: inline-flex; align-items: center; gap: 0.7rem;
     background: var(--teal); color: var(--green-deep); padding: 0.85rem 1.7rem;
@@ -106,14 +103,7 @@
   .carousel-slides { display: flex; transition: transform 0.4s ease; height: 100%; }
   .carousel-slide { min-width: 100%; height: 100%; }
   .carousel-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .carousel-placeholder {
-    width: 100%; height: 100%; display: flex; flex-direction: column;
-    align-items: center; justify-content: center; background: var(--green-dark);
-    gap: 0.8rem;
-  }
-  .carousel-placeholder .ph-icon { font-size: 2.5rem; opacity: 0.4; }
-  .carousel-placeholder .ph-text { font-size: 0.7rem; color: var(--cream-dim); opacity: 0.5; letter-spacing: 0.08em; text-transform: uppercase; }
-  .carousel-dots { display: flex; justify-content: center; gap: 6px; margin-top: 12px; }
+  .carousel-dots { display: flex; justify-content: center; gap: 6px; margin-top: 12px; flex-wrap: wrap; max-width: 260px; }
   .carousel-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(63,184,122,0.3); cursor: pointer; transition: all 0.2s; border: none; padding: 0; }
   .carousel-dot.active { background: var(--teal); width: 18px; border-radius: 3px; }
   .carousel-btn {
@@ -126,11 +116,9 @@
   .carousel-btn.prev { left: -16px; }
   .carousel-btn.next { right: -16px; }
 
-  /* SECTIONS */
   .section-label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--teal); margin-bottom: 0.8rem; }
   .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 300; line-height: 1.1; margin-bottom: 3rem; }
 
-  /* FEATURES */
   .features { padding: 6rem; }
   .features-grid {
     display: grid; grid-template-columns: repeat(3, 1fr);
@@ -143,7 +131,6 @@
   .feature-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; margin-bottom: 0.6rem; }
   .feature-desc { font-size: 0.83rem; line-height: 1.7; color: var(--cream-dim); }
 
-  /* AULA */
   .aula-section { padding: 6rem; background: var(--green-dark); }
   .aula-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 2rem; }
   .aula-card {
@@ -154,7 +141,6 @@
   .aula-icon { font-size: 1.8rem; margin-bottom: 0.6rem; }
   .aula-name { font-size: 0.82rem; color: var(--cream-dim); line-height: 1.5; }
 
-  /* FORMATION */
   .formation { padding: 6rem; background: var(--green-deep); }
   .formation-intro { max-width: 600px; margin-bottom: 3rem; }
   .formation-intro p { font-size: 0.95rem; color: var(--cream-dim); line-height: 1.8; }
@@ -170,7 +156,6 @@
   .level-items li { font-size: 0.8rem; color: var(--cream-dim); display: flex; gap: 0.5rem; align-items: flex-start; }
   .level-items li::before { content: '·'; color: var(--teal); flex-shrink: 0; }
 
-  /* LEARNING FLOW */
   .learning-flow { padding: 6rem; background: var(--green-dark); }
   .flow-steps { display: flex; flex-direction: column; gap: 1rem; margin-top: 3rem; }
   .flow-step {
@@ -200,7 +185,6 @@
   .flow-highlight-text { font-size: 0.85rem; color: var(--cream-dim); line-height: 1.7; }
   .flow-highlight-text strong { color: var(--teal); font-weight: 500; }
 
-  /* FAMILY */
   .family-section { padding: 6rem; }
   .family-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
   .family-cards { display: flex; flex-direction: column; gap: 1rem; }
@@ -212,27 +196,32 @@
   .family-card-title { font-size: 0.88rem; font-weight: 500; margin-bottom: 0.25rem; }
   .family-card-desc { font-size: 0.78rem; color: var(--cream-dim); line-height: 1.6; }
 
-  /* PRICING */
+  /* PRICING — FIXED */
   .pricing { padding: 6rem; text-align: center; background: var(--green-dark); }
   .pricing-toggle { display: inline-flex; background: rgba(7,30,13,0.8); border: 1px solid rgba(63,184,122,0.15); border-radius: 100px; padding: 4px; gap: 4px; margin-bottom: 3rem; }
-  .pricing-toggle-btn { padding: 0.5rem 1.4rem; border-radius: 100px; border: none; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; cursor: pointer; transition: all 0.2s; background: none; color: var(--cream-dim); }
+  .pricing-toggle-btn { padding: 0.5rem 1.4rem; border-radius: 100px; border: none; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; cursor: pointer; transition: all 0.2s; background: none; color: var(--cream-dim); white-space: nowrap; }
   .pricing-toggle-btn.active { background: var(--teal); color: var(--green-deep); font-weight: 500; }
-  .pricing-toggle-btn .save-badge { background: var(--gold); color: var(--green-deep); font-size: 0.65rem; font-weight: 700; padding: 1px 6px; border-radius: 100px; margin-left: 6px; }
-  .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 900px; margin: 0 auto; }
+  .pricing-toggle-btn .save-badge { background: var(--gold); color: var(--green-deep); font-size: 0.65rem; font-weight: 700; padding: 1px 6px; border-radius: 100px; margin-left: 6px; vertical-align: middle; }
+  .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 900px; margin: 0 auto; align-items: start; }
   .price-card {
     background: rgba(7,30,13,0.8); border: 1px solid rgba(63,184,122,0.15);
     border-radius: 24px; padding: 2rem; position: relative; text-align: left;
-    transition: border-color 0.3s;
+    transition: border-color 0.3s; display: flex; flex-direction: column;
   }
   .price-card:hover { border-color: rgba(63,184,122,0.3); }
   .price-card.featured { border-color: var(--gold); border-width: 1.5px; }
   .price-card.featured::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); border-radius: 24px 24px 0 0; }
-  .price-popular { display: inline-block; background: var(--gold); color: var(--green-deep); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 10px; border-radius: 100px; margin-bottom: 1rem; }
+  .price-popular {
+    display: inline-block; background: var(--gold); color: var(--green-deep);
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 3px 10px; border-radius: 100px; margin-bottom: 1rem;
+    white-space: nowrap; width: fit-content;
+  }
   .price-plan-name { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; margin-bottom: 0.3rem; }
   .price-tag { font-size: 2.8rem; font-weight: 300; color: var(--teal); line-height: 1; margin: 1rem 0 0.2rem; }
   .price-tag.gold { color: var(--gold); }
-  .price-period { font-size: 0.78rem; color: var(--cream-dim); margin-bottom: 1.5rem; }
-  .price-features { list-style: none; margin-bottom: 1.5rem; }
+  .price-period { font-size: 0.78rem; color: var(--cream-dim); margin-bottom: 1.5rem; min-height: 1.2em; }
+  .price-features { list-style: none; margin-bottom: 1.5rem; flex: 1; }
   .price-features li { padding: 0.45rem 0; font-size: 0.82rem; color: var(--cream-dim); border-bottom: 1px solid rgba(255,255,255,0.04); display: flex; gap: 0.7rem; align-items: center; }
   .price-features li .check { color: var(--teal); flex-shrink: 0; }
   .price-features li .check.gold { color: var(--gold); }
@@ -240,7 +229,8 @@
   .price-btn {
     width: 100%; padding: 0.8rem; border-radius: 100px; border: 1px solid rgba(63,184,122,0.3);
     background: none; color: var(--teal); font-family: 'DM Sans', sans-serif;
-    font-size: 0.85rem; cursor: pointer; transition: all 0.2s; text-align: center; text-decoration: none; display: block;
+    font-size: 0.85rem; cursor: pointer; transition: all 0.2s; text-align: center;
+    text-decoration: none; display: block; margin-top: auto;
   }
   .price-btn:hover { background: rgba(63,184,122,0.08); }
   .price-btn.featured-btn { background: var(--gold); border-color: var(--gold); color: var(--green-deep); font-weight: 500; }
@@ -248,7 +238,6 @@
   .price-trial { font-size: 0.75rem; color: var(--teal-light); margin-top: 0.8rem; text-align: center; }
   .pricing-note { font-size: 0.78rem; color: var(--cream-dim); margin-top: 2rem; opacity: 0.6; }
 
-  /* FAQ */
   .faq-section { padding: 6rem; }
   .faq-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
   .faq-group-title { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--teal); margin-bottom: 0.75rem; margin-top: 1.5rem; }
@@ -260,7 +249,6 @@
   .faq-item.open .faq-a { display: block; }
   .faq-item.open .faq-icon { transform: rotate(45deg); }
 
-  /* FOOTER */
   footer {
     padding: 3rem 6rem; border-top: 1px solid rgba(63,184,122,0.08);
     display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
@@ -270,11 +258,9 @@
   .footer-links a { font-size: 0.78rem; color: var(--cream-dim); text-decoration: none; transition: color 0.2s; }
   .footer-links a:hover { color: var(--teal); }
 
-  /* ANIMATIONS */
   @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-  /* RESPONSIVE */
   @media (max-width: 900px) {
     nav { padding: 1rem 1.5rem; }
     .hero { grid-template-columns: 1fr; padding: 6rem 2rem 3rem; text-align: center; }
@@ -309,7 +295,6 @@
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-arabic-bg" aria-hidden="true">نور</div>
   <div class="hero-content">
@@ -330,41 +315,15 @@
     <div class="carousel-wrap">
       <div class="carousel">
         <div class="carousel-slides" id="carousel-slides">
-          <!-- PLACEHOLDER 1 -->
-          <div class="carousel-slide">
-            <div class="carousel-placeholder">
-              <div class="ph-icon">🌙</div>
-              <div class="ph-text" data-t="screenshot_tasbih"></div>
-            </div>
-          </div>
-          <!-- PLACEHOLDER 2 -->
-          <div class="carousel-slide">
-            <div class="carousel-placeholder">
-              <div class="ph-icon">🕌</div>
-              <div class="ph-text" data-t="screenshot_prayer"></div>
-            </div>
-          </div>
-          <!-- PLACEHOLDER 3 -->
-          <div class="carousel-slide">
-            <div class="carousel-placeholder">
-              <div class="ph-icon">🧭</div>
-              <div class="ph-text" data-t="screenshot_qibla"></div>
-            </div>
-          </div>
-          <!-- PLACEHOLDER 4 -->
-          <div class="carousel-slide">
-            <div class="carousel-placeholder">
-              <div class="ph-icon">⭐</div>
-              <div class="ph-text" data-t="screenshot_junior"></div>
-            </div>
-          </div>
-          <!-- PLACEHOLDER 5 -->
-          <div class="carousel-slide">
-            <div class="carousel-placeholder">
-              <div class="ph-icon">🎓</div>
-              <div class="ph-text" data-t="screenshot_aula"></div>
-            </div>
-          </div>
+          <div class="carousel-slide"><img src="Tasbih.jpeg" alt="Tasbih" loading="lazy"></div>
+          <div class="carousel-slide"><img src="Rezopadre.jpeg" alt="Rezos padre" loading="lazy"></div>
+          <div class="carousel-slide"><img src="Ibada.jpeg" alt="Ibada" loading="lazy"></div>
+          <div class="carousel-slide"><img src="Versiculos.jpeg" alt="Versículos" loading="lazy"></div>
+          <div class="carousel-slide"><img src="PanelPadres.jpeg" alt="Panel padres" loading="lazy"></div>
+          <div class="carousel-slide"><img src="Rezoninos.jpeg" alt="Rezo niños" loading="lazy"></div>
+          <div class="carousel-slide"><img src="Formacion.jpeg" alt="Formación" loading="lazy"></div>
+          <div class="carousel-slide"><img src="Aula.jpeg" alt="Aula" loading="lazy"></div>
+          <div class="carousel-slide"><img src="Jarra.jpeg" alt="Jarra Sadaqah" loading="lazy"></div>
         </div>
       </div>
       <button class="carousel-btn prev" onclick="prevSlide()">‹</button>
@@ -375,12 +334,15 @@
         <button class="carousel-dot" onclick="goSlide(2)"></button>
         <button class="carousel-dot" onclick="goSlide(3)"></button>
         <button class="carousel-dot" onclick="goSlide(4)"></button>
+        <button class="carousel-dot" onclick="goSlide(5)"></button>
+        <button class="carousel-dot" onclick="goSlide(6)"></button>
+        <button class="carousel-dot" onclick="goSlide(7)"></button>
+        <button class="carousel-dot" onclick="goSlide(8)"></button>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FEATURES -->
 <section class="features">
   <div class="section-label" data-t="feat_label"></div>
   <h2 class="section-title" data-t="feat_title"></h2>
@@ -397,7 +359,6 @@
   </div>
 </section>
 
-<!-- AULA -->
 <section class="aula-section">
   <div class="section-label" data-t="aula_label"></div>
   <h2 class="section-title" data-t="aula_title"></h2>
@@ -411,10 +372,13 @@
     <div class="aula-card"><div class="aula-icon">📖</div><div class="aula-name" data-t="aula_g6"></div></div>
     <div class="aula-card"><div class="aula-icon">💧</div><div class="aula-name" data-t="aula_g7"></div></div>
     <div class="aula-card"><div class="aula-icon">👼</div><div class="aula-name" data-t="aula_g8"></div></div>
+    <div class="aula-card"><div class="aula-icon">✅</div><div class="aula-name" data-t="aula_g9"></div></div>
+    <div class="aula-card"><div class="aula-icon">☝️</div><div class="aula-name" data-t="aula_g10"></div></div>
+    <div class="aula-card"><div class="aula-icon">🤔</div><div class="aula-name" data-t="aula_g11"></div></div>
+    <div class="aula-card"><div class="aula-icon">✨</div><div class="aula-name" data-t="aula_g12"></div></div>
   </div>
 </section>
 
-<!-- FORMATION -->
 <section class="formation">
   <div class="section-label" data-t="form_label"></div>
   <h2 class="section-title" data-t="form_title"></h2>
@@ -429,7 +393,6 @@
   </div>
 </section>
 
-<!-- LEARNING FLOW -->
 <section class="learning-flow">
   <div class="section-label" data-t="flow_label"></div>
   <h2 class="section-title" data-t="flow_title"></h2>
@@ -446,7 +409,6 @@
   <div class="cta-wrap"><a href="https://play.google.com/store" class="btn-cta" target="_blank" data-t="cta_flow"></a></div>
 </section>
 
-<!-- FAMILY -->
 <section class="family-section">
   <div class="section-label" data-t="fam_label"></div>
   <div class="family-inner">
@@ -463,7 +425,6 @@
   </div>
 </section>
 
-<!-- PRICING -->
 <section class="pricing">
   <div class="section-label" data-t="price_label"></div>
   <h2 class="section-title" data-t="price_title"></h2>
@@ -472,7 +433,6 @@
     <button class="pricing-toggle-btn active" id="toggle-yearly" onclick="setPricingPeriod('yearly')"><span data-t="price_yearly"></span><span class="save-badge">-25%</span></button>
   </div>
   <div class="pricing-grid">
-    <!-- FREE -->
     <div class="price-card">
       <div class="price-plan-name" data-t="plan_free"></div>
       <div class="price-tag">0€</div>
@@ -480,7 +440,6 @@
       <ul class="price-features" id="free-features"></ul>
       <a href="https://play.google.com/store" class="price-btn" target="_blank" data-t="plan_free_cta"></a>
     </div>
-    <!-- FAMILY -->
     <div class="price-card">
       <div class="price-plan-name" data-t="plan_family"></div>
       <div class="price-tag" id="family-price">1,99€</div>
@@ -489,7 +448,6 @@
       <a href="https://play.google.com/store" class="price-btn" target="_blank" data-t="plan_family_cta"></a>
       <div class="price-trial" data-t="price_trial"></div>
     </div>
-    <!-- FAMILY+ -->
     <div class="price-card featured">
       <div class="price-popular" data-t="plan_popular"></div>
       <div class="price-plan-name" data-t="plan_familyplus"></div>
@@ -503,14 +461,12 @@
   <p class="pricing-note" data-t="pricing_note"></p>
 </section>
 
-<!-- FAQ -->
 <section class="faq-section">
   <div class="section-label" data-t="faq_label"></div>
   <h2 class="section-title" data-t="faq_title"></h2>
   <div class="faq-grid" id="faq-container"></div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-logo">نور · Nour</div>
   <div class="footer-links">
@@ -521,9 +477,8 @@
 </footer>
 
 <script>
-// CAROUSEL
 let currentSlide = 0;
-const totalSlides = 5;
+const totalSlides = 9;
 function updateCarousel() {
   document.getElementById('carousel-slides').style.transform = `translateX(-${currentSlide * 100}%)`;
   document.querySelectorAll('.carousel-dot').forEach((d,i) => d.classList.toggle('active', i === currentSlide));
@@ -533,7 +488,6 @@ function prevSlide() { currentSlide = (currentSlide - 1 + totalSlides) % totalSl
 function goSlide(i) { currentSlide = i; updateCarousel(); }
 setInterval(nextSlide, 4000);
 
-// PRICING TOGGLE
 let currentPeriod = 'yearly';
 function setPricingPeriod(period) {
   currentPeriod = period;
@@ -546,11 +500,9 @@ function setPricingPeriod(period) {
   document.getElementById('familyplus-period').textContent = period === 'monthly' ? t.price_per_month : t.price_per_year;
 }
 
-// TRANSLATIONS
 const T = {
   es: {
     badge:"App islámica familiar", tagline:"Tasbih, tiempos de rezo, Qibla, Corán, Aula islámica y seguimiento para tus hijos — todo en una app, sin anuncios.", download:"Descargar en Google Play",
-    screenshot_tasbih:"Tasbih", screenshot_prayer:"Rezos", screenshot_qibla:"Qibla", screenshot_junior:"Nour Jr.", screenshot_aula:"Aula",
     feat_label:"Funcionalidades", feat_title:"Todo lo que necesita tu familia",
     f1_title:"Tiempos de rezo", f1_desc:"Horarios precisos por GPS para las 6 oraciones diarias. 10 métodos de cálculo reconocidos.",
     f2_title:"Tasbih digital", f2_desc:"Contador con modos 33, 99 y libre. Estadísticas diarias de tus dhikrs.",
@@ -561,11 +513,12 @@ const T = {
     f7_title:"Diccionario islámico", f7_desc:"30 términos esenciales del Islam con explicación en árabe, español e inglés.",
     f8_title:"Modo Ramadán", f8_desc:"Notificaciones de Suhoor e Iftar, banner especial y dhikrs propios del mes sagrado.",
     f9_title:"Sin anuncios", f9_desc:"Experiencia limpia y respetuosa. Sin distracciones. Tu privacidad protegida.",
-    aula_label:"El Aula", aula_title:"8 juegos islámicos para niños",
-    aula_intro:"El Aula es el espacio de aprendizaje gamificado de Nour Jr. 8 minijuegos diseñados para que los niños aprendan Islam de forma divertida.",
+    aula_label:"El Aula", aula_title:"12 juegos islámicos para niños",
+    aula_intro:"El Aula es el espacio de aprendizaje gamificado de Nour Jr. 12 minijuegos diseñados para que los niños aprendan Islam de forma divertida.",
     aula_g1:"Memory letras árabes", aula_g2:"Quiz 99 nombres de Allah", aula_g3:"Ordena los rezos",
     aula_g4:"Empareja profeta-historia", aula_g5:"Halal o Haram", aula_g6:"Completa el ayah",
     aula_g7:"Wudú paso a paso", aula_g8:"Quiz ángeles del Islam",
+    aula_g9:"Verdadero o Falso", aula_g10:"Ordena los Pilares", aula_g11:"¿Quién soy?", aula_g12:"Nombres de Allah",
     form_label:"Formación islámica", form_title:"Tu hijo aprenderá...",
     form_intro:"Un currículo islámico completo, progresivo y gamificado. Cada elemento se desbloquea al completar el anterior. El padre valida cada logro en persona.",
     lvl1_num:"Nivel 1", lvl1_title:"Primeras palabras",
@@ -602,7 +555,6 @@ const T = {
   },
   en: {
     badge:"Islamic family app", tagline:"Tasbih, prayer times, Qibla, Quran, Islamic learning and child tracking — all in one app, ad-free.", download:"Download on Google Play",
-    screenshot_tasbih:"Tasbih", screenshot_prayer:"Prayers", screenshot_qibla:"Qibla", screenshot_junior:"Nour Jr.", screenshot_aula:"Learning",
     feat_label:"Features", feat_title:"Everything your family needs",
     f1_title:"Prayer times", f1_desc:"Accurate GPS times for the 6 daily prayers. 10 recognised calculation methods.",
     f2_title:"Digital tasbih", f2_desc:"Counter with 33, 99 and free modes. Daily dhikr statistics.",
@@ -613,11 +565,12 @@ const T = {
     f7_title:"Islamic dictionary", f7_desc:"30 essential Islamic terms explained in Arabic, Spanish and English.",
     f8_title:"Ramadan mode", f8_desc:"Suhoor and Iftar notifications, special banner and dhikrs for the sacred month.",
     f9_title:"Ad-free", f9_desc:"Clean and respectful experience. No distractions. Your privacy protected.",
-    aula_label:"The Classroom", aula_title:"8 Islamic games for children",
-    aula_intro:"The Aula is Nour Jr.'s gamified learning space. 8 mini-games designed for children to learn Islam in a fun way.",
+    aula_label:"The Classroom", aula_title:"12 Islamic games for children",
+    aula_intro:"The Aula is Nour Jr.'s gamified learning space. 12 mini-games designed for children to learn Islam in a fun way.",
     aula_g1:"Arabic letter memory", aula_g2:"Quiz: 99 names of Allah", aula_g3:"Order the prayers",
     aula_g4:"Match prophet to story", aula_g5:"Halal or Haram", aula_g6:"Complete the ayah",
     aula_g7:"Wudu step by step", aula_g8:"Angels of Islam quiz",
+    aula_g9:"True or False", aula_g10:"Order the Pillars", aula_g11:"Who am I?", aula_g12:"Names of Allah",
     form_label:"Islamic learning", form_title:"Your child will learn...",
     form_intro:"A complete, progressive and gamified Islamic curriculum. Each element unlocks after completing the previous one. The parent validates each achievement in person.",
     lvl1_num:"Level 1", lvl1_title:"First words",
@@ -654,7 +607,6 @@ const T = {
   },
   ar: {
     badge:"تطبيق إسلامي عائلي", tagline:"أوقات الصلاة، التسبيح، القبلة، القرآن، الفصل الإسلامي ومتابعة أطفالك — كل شيء في تطبيق واحد، بدون إعلانات.", download:"تحميل على Google Play",
-    screenshot_tasbih:"المسبحة", screenshot_prayer:"الصلاة", screenshot_qibla:"القبلة", screenshot_junior:"نور Jr.", screenshot_aula:"الفصل",
     feat_label:"المميزات", feat_title:"كل ما تحتاجه عائلتك",
     f1_title:"أوقات الصلاة", f1_desc:"أوقات دقيقة بالـ GPS للصلوات الست اليومية. ١٠ طرق حساب معتمدة.",
     f2_title:"مسبحة رقمية", f2_desc:"عداد بأوضاع ٣٣ و٩٩ وحر. إحصائيات يومية لأذكارك.",
@@ -665,11 +617,12 @@ const T = {
     f7_title:"القاموس الإسلامي", f7_desc:"٣٠ مصطلحاً إسلامياً أساسياً بالعربية والإسبانية والإنجليزية.",
     f8_title:"وضع رمضان", f8_desc:"إشعارات السحور والإفطار وبانر خاص وأذكار شهر رمضان المبارك.",
     f9_title:"بدون إعلانات", f9_desc:"تجربة هادئة ونظيفة. بدون تشتيت. خصوصيتك محمية.",
-    aula_label:"الفصل", aula_title:"٨ ألعاب إسلامية للأطفال",
-    aula_intro:"الفصل هو فضاء التعلم التفاعلي في نور Jr. ثمانية ألعاب صُممت لتعليم الأطفال الإسلام بطريقة ممتعة.",
+    aula_label:"الفصل", aula_title:"١٢ لعبة إسلامية للأطفال",
+    aula_intro:"الفصل هو فضاء التعلم التفاعلي في نور Jr. اثنا عشر لعبة صُممت لتعليم الأطفال الإسلام بطريقة ممتعة.",
     aula_g1:"ذاكرة الحروف العربية", aula_g2:"اختبار أسماء الله الـ٩٩", aula_g3:"رتّب الصلوات",
     aula_g4:"طابق النبي بقصته", aula_g5:"حلال أم حرام", aula_g6:"أكمل الآية",
     aula_g7:"الوضوء خطوة بخطوة", aula_g8:"اختبار ملائكة الإسلام",
+    aula_g9:"صح أم خطأ", aula_g10:"رتّب أركان الإسلام", aula_g11:"من أنا؟", aula_g12:"أسماء الله الحسنى",
     form_label:"التعليم الإسلامي", form_title:"سيتعلم طفلك...",
     form_intro:"منهج إسلامي متكامل وتدريجي وممتع. كل عنصر يُفتح بعد إتمام السابق. الوالد يتحقق شخصياً من كل إنجاز.",
     lvl1_num:"المستوى ١", lvl1_title:"أول الكلمات",
@@ -724,8 +677,8 @@ const PLAN_FEATURES = {
       {check:true, text:"Todo lo de Free"},
       {check:true, text:"Hasta 3 perfiles de hijo"},
       {check:true, text:"Modo Nour Jr. completo"},
-      {check:true, text:"Aula — 8 juegos islámicos"},
-      {check:true, text:"Formación 85 lecciones"},
+      {check:true, text:"Aula — 12 juegos islámicos"},
+      {check:true, text:"Formación 99+ lecciones"},
       {check:true, text:"Validación de rezos"},
       {check:true, text:"Mensajes padre-hijo"},
       {check:false, text:"Hijos ilimitados"},
@@ -759,8 +712,8 @@ const PLAN_FEATURES = {
       {check:true, text:"Everything in Free"},
       {check:true, text:"Up to 3 child profiles"},
       {check:true, text:"Full Nour Jr. mode"},
-      {check:true, text:"Aula — 8 Islamic games"},
-      {check:true, text:"85-lesson curriculum"},
+      {check:true, text:"Aula — 12 Islamic games"},
+      {check:true, text:"99+ lesson curriculum"},
       {check:true, text:"Prayer validation"},
       {check:true, text:"Parent-child messages"},
       {check:false, text:"Unlimited children"},
@@ -794,8 +747,8 @@ const PLAN_FEATURES = {
       {check:true, text:"كل ما في المجاني"},
       {check:true, text:"حتى ٣ ملفات أطفال"},
       {check:true, text:"وضع نور Jr. الكامل"},
-      {check:true, text:"الفصل — ٨ ألعاب إسلامية"},
-      {check:true, text:"٨٥ درساً تعليمياً"},
+      {check:true, text:"الفصل — ١٢ لعبة إسلامية"},
+      {check:true, text:"٩٩+ درساً تعليمياً"},
       {check:true, text:"التحقق من الصلوات"},
       {check:true, text:"رسائل الوالد للطفل"},
       {check:false, text:"أطفال غير محدودين"},
@@ -819,25 +772,25 @@ const LEVELS = {
     ["Bismillah", "Takbir — Allahu Akbar", "La Shahada", "Salawat", "Tasbih básico", "Duas diarias"],
     ["Introducción a Al-Fatiha", "Versículos 1-7 paso a paso", "Memorización completa", "Pronunciación con tajwid básico"],
     ["Dhikrs del rezo (ruku y sujud)", "Tashahhud completo", "Dua al terminar", "Dhikr post-rezo 33+33+34", "Ayat al-Kursi"],
-    ["Al-Ikhlas", "Al-Falaq", "An-Nas", "Al-Kawthar", "Al-Asr", "An-Nasr"],
+    ["Al-Ikhlas", "Al-Falaq", "An-Nas", "Al-Kawthar", "Al-Asr", "An-Nasr", "Al-Fil", "Quraysh", "Al-Maun", "At-Takathur", "Al-Humazah", "At-Tin", "Al-Bayyinah"],
     ["Introducción a los 99 nombres", "Nombres 1–6: Los esenciales", "Nombres 7–45: Poder y grandeza", "Nombres 46–99: Compasión y luz"],
-    ["Los 5 pilares del Islam", "Zakat — El tercer pilar", "Sawm — El cuarto pilar", "Hajj — El quinto pilar", "Los 6 artículos de fe"]
+    ["Los 5 pilares del Islam", "La Shahada — 1er pilar", "La Salah — 2º pilar", "Zakat — El tercer pilar", "Sawm — El cuarto pilar", "Hajj — El quinto pilar", "Los 6 artículos de fe"]
   ],
   en: [
     ["Bismillah", "Takbir — Allahu Akbar", "The Shahada", "Salawat", "Basic Tasbih", "Daily duas"],
     ["Introduction to Al-Fatiha", "Verses 1-7 step by step", "Complete memorisation", "Basic tajwid pronunciation"],
     ["Prayer dhikrs (ruku and sujud)", "Complete Tashahhud", "Dua after prayer", "Post-prayer dhikr 33+33+34", "Ayat al-Kursi"],
-    ["Al-Ikhlas", "Al-Falaq", "An-Nas", "Al-Kawthar", "Al-Asr", "An-Nasr"],
+    ["Al-Ikhlas", "Al-Falaq", "An-Nas", "Al-Kawthar", "Al-Asr", "An-Nasr", "Al-Fil", "Quraysh", "Al-Maun", "At-Takathur", "Al-Humazah", "At-Tin", "Al-Bayyinah"],
     ["Introduction to the 99 names", "Names 1–6: The essential", "Names 7–45: Power and greatness", "Names 46–99: Compassion and light"],
-    ["The 5 pillars of Islam", "Zakat — The third pillar", "Sawm — The fourth pillar", "Hajj — The fifth pillar", "The 6 articles of faith"]
+    ["The 5 pillars of Islam", "The Shahada — 1st pillar", "Salah — 2nd pillar", "Zakat — The third pillar", "Sawm — The fourth pillar", "Hajj — The fifth pillar", "The 6 articles of faith"]
   ],
   ar: [
     ["البسملة", "التكبير — الله أكبر", "الشهادة", "الصلاة على النبي", "التسبيح الأساسي", "أدعية يومية"],
     ["مقدمة الفاتحة", "الآيات ١-٧ خطوة بخطوة", "الحفظ الكامل", "نطق التجويد الأساسي"],
     ["أذكار الصلاة (الركوع والسجود)", "التشهد كاملاً", "دعاء بعد الصلاة", "أذكار ما بعد الصلاة ٣٣+٣٣+٣٤", "آية الكرسي"],
-    ["الإخلاص", "الفلق", "الناس", "الكوثر", "العصر", "النصر"],
+    ["الإخلاص", "الفلق", "الناس", "الكوثر", "العصر", "النصر", "الفيل", "قريش", "الماعون", "التكاثر", "الهمزة", "التين", "البينة"],
     ["مقدمة الأسماء الحسنى", "الأسماء ١–٦: الأساسية", "الأسماء ٧–٤٥: القوة والعظمة", "الأسماء ٤٦–٩٩: الرحمة والنور"],
-    ["أركان الإسلام الخمسة", "الزكاة — الركن الثالث", "الصوم — الركن الرابع", "الحج — الركن الخامس", "أركان الإيمان الستة"]
+    ["أركان الإسلام الخمسة", "الشهادة — الركن الأول", "الصلاة — الركن الثاني", "الزكاة — الركن الثالث", "الصوم — الركن الرابع", "الحج — الركن الخامس", "أركان الإيمان الستة"]
   ]
 };
 
@@ -852,7 +805,7 @@ const FAQ = {
     { section: 'Modo hijo y aprendizaje', items: [
       { q: '¿Cómo accede mi hijo?', a: 'Desde tu panel de padres pulsa el botón de código junto al perfil de tu hijo. Se genera un código de 6 dígitos. Tu hijo lo introduce en su dispositivo.' },
       { q: '¿Qué significa cada estrella?', a: '⭐ Una estrella: el niño está estudiando. ⭐⭐ Dos estrellas: ha superado el quiz. ⭐⭐⭐ Tres estrellas: el padre ha validado presencialmente que lo sabe de verdad.' },
-      { q: '¿Qué son los juegos del Aula?', a: 'El Aula tiene 8 minijuegos islámicos: memory de letras árabes, quiz de los 99 nombres, ordenar rezos, emparejar profetas, halal o haram, completar ayahs, wudú paso a paso y quiz de ángeles.' },
+      { q: '¿Qué son los juegos del Aula?', a: 'El Aula tiene 12 minijuegos islámicos: memory de letras árabes, quiz de los 99 nombres, ordenar rezos, emparejar profetas, halal o haram, completar ayahs, wudú paso a paso, quiz de ángeles, verdadero o falso, ordena los pilares, ¿quién soy? y nombres de Allah.' },
     ]},
     { section: 'Suscripción y pagos', items: [
       { q: '¿Cuál es la diferencia entre Family y Family+?', a: 'Family incluye hasta 3 perfiles de hijo con acceso completo al modo Nour Jr. Family+ añade hijos ilimitados, estadísticas avanzadas, historial completo y recordatorios personalizados.' },
@@ -875,7 +828,7 @@ const FAQ = {
     { section: 'Child mode and learning', items: [
       { q: 'How does my child access the app?', a: 'From your parent dashboard, tap the code button next to your child\'s profile. A 6-digit code is generated. Your child enters it on their device.' },
       { q: 'What does each star mean?', a: '⭐ One star: the child is studying. ⭐⭐ Two stars: they passed the quiz. ⭐⭐⭐ Three stars: the parent has validated in person that they really know it.' },
-      { q: 'What are the Aula games?', a: 'The Aula has 8 Islamic mini-games: Arabic letter memory, 99 names quiz, order the prayers, match prophets, halal or haram, complete the ayah, wudu step by step and angels quiz.' },
+      { q: 'What are the Aula games?', a: 'The Aula has 12 Islamic mini-games: Arabic letter memory, 99 names quiz, order the prayers, match prophets, halal or haram, complete the ayah, wudu step by step, angels quiz, true or false, order the pillars, who am I? and names of Allah.' },
     ]},
     { section: 'Subscription and payments', items: [
       { q: 'What is the difference between Family and Family+?', a: 'Family includes up to 3 child profiles with full access to Nour Jr. mode. Family+ adds unlimited children, advanced statistics, full history and personalised reminders.' },
@@ -898,7 +851,7 @@ const FAQ = {
     { section: 'وضع الطفل والتعلم', items: [
       { q: 'كيف يدخل طفلي إلى التطبيق؟', a: 'من لوحة تحكم الوالدين، اضغط زر الرمز بجانب ملف طفلك. يتولّد رمز مكوّن من ٦ أرقام. يدخله طفلك في جهازه.' },
       { q: 'ماذا تعني كل نجمة؟', a: '⭐ نجمة واحدة: الطفل يدرس. ⭐⭐ نجمتان: اجتاز الاختبار. ⭐⭐⭐ ثلاث نجوم: الوالد تحقق شخصياً أنه يعرفه فعلاً.' },
-      { q: 'ما هي ألعاب الفصل؟', a: 'الفصل يحتوي على ٨ ألعاب إسلامية: ذاكرة الحروف العربية، اختبار الأسماء الحسنى، ترتيب الصلوات، مطابقة الأنبياء، حلال أم حرام، إكمال الآية، الوضوء خطوة بخطوة، واختبار الملائكة.' },
+      { q: 'ما هي ألعاب الفصل؟', a: 'الفصل يحتوي على ١٢ لعبة إسلامية: ذاكرة الحروف العربية، اختبار الأسماء الحسنى، ترتيب الصلوات، مطابقة الأنبياء، حلال أم حرام، إكمال الآية، الوضوء خطوة بخطوة، اختبار الملائكة، صح أم خطأ، رتّب الأركان، من أنا؟ وأسماء الله.' },
     ]},
     { section: 'الاشتراك والمدفوعات', items: [
       { q: 'ما الفرق بين العائلي والعائلي بلس؟', a: 'العائلي يشمل حتى ٣ ملفات أطفال مع وصول كامل لوضع نور Jr. العائلي بلس يضيف أطفالاً غير محدودين وإحصائيات متقدمة وسجلاً كاملاً وتذكيرات مخصصة.' },
@@ -922,9 +875,7 @@ function renderPlanFeatures(lang) {
     if (!el) return;
     el.innerHTML = pf[plan].map(f => `
       <li>
-        ${f.check
-          ? `<span class="check${f.gold?' gold':''}">✓</span>`
-          : `<span class="dash">–</span>`}
+        ${f.check ? `<span class="check${f.gold?' gold':''}">✓</span>` : `<span class="dash">–</span>`}
         ${f.text}
       </li>
     `).join('');
