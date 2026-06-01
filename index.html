@@ -196,7 +196,7 @@
   .family-card-title { font-size: 0.88rem; font-weight: 500; margin-bottom: 0.25rem; }
   .family-card-desc { font-size: 0.78rem; color: var(--cream-dim); line-height: 1.6; }
 
-  /* PRICING — FIXED */
+  /* PRICING */
   .pricing { padding: 6rem; text-align: center; background: var(--green-dark); }
   .pricing-toggle { display: inline-flex; background: rgba(7,30,13,0.8); border: 1px solid rgba(63,184,122,0.15); border-radius: 100px; padding: 4px; gap: 4px; margin-bottom: 3rem; }
   .pricing-toggle-btn { padding: 0.5rem 1.4rem; border-radius: 100px; border: none; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; cursor: pointer; transition: all 0.2s; background: none; color: var(--cream-dim); white-space: nowrap; }
@@ -305,7 +305,8 @@
     </h1>
     <p class="hero-tagline" data-t="tagline"></p>
     <div class="hero-actions">
-      <a href="https://play.google.com/store" class="btn-primary" target="_blank">
+      <!-- TODO: al publicar, cambiar PLAY_URL abajo en el script por la URL real de la app -->
+      <a href="#" class="btn-primary play-link" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 20.5v-17c0-.83 1-.97 1.4-.5l15 8.5c.36.2.36.8 0 1L4.4 21c-.4.47-1.4.33-1.4-.5z"/></svg>
         <span data-t="download"></span>
       </a>
@@ -408,7 +409,7 @@
     <div class="flow-step"><div class="flow-step-left"><div class="flow-step-num">4</div><div class="flow-step-icon">👨‍👧</div></div><div class="flow-step-right"><div class="flow-step-title" data-t="flow4_title"></div><p class="flow-step-desc" data-t="flow4_desc"></p></div></div>
   </div>
   <div class="flow-highlight"><div class="flow-highlight-icon">💡</div><div class="flow-highlight-text" id="flow-key-text"></div></div>
-  <div class="cta-wrap"><a href="https://play.google.com/store" class="btn-cta" target="_blank" data-t="cta_flow"></a></div>
+  <div class="cta-wrap"><a href="#" class="btn-cta play-link" target="_blank" rel="noopener" data-t="cta_flow"></a></div>
 </section>
 
 <section class="family-section">
@@ -417,7 +418,7 @@
     <div>
       <h2 class="section-title" data-t="fam_title"></h2>
       <p style="color:var(--cream-dim);font-size:0.9rem;line-height:1.8;margin-bottom:2rem" data-t="fam_desc"></p>
-      <a href="https://play.google.com/store" class="btn-primary" target="_blank" data-t="cta_family"></a>
+      <a href="#" class="btn-primary play-link" target="_blank" rel="noopener" data-t="cta_family"></a>
     </div>
     <div class="family-cards">
       <div class="family-card"><div class="family-card-icon">🔑</div><div><div class="family-card-title" data-t="fc1_title"></div><p class="family-card-desc" data-t="fc1_desc"></p></div></div>
@@ -440,14 +441,14 @@
       <div class="price-tag">0€</div>
       <div class="price-period" data-t="plan_free_period"></div>
       <ul class="price-features" id="free-features"></ul>
-      <a href="https://play.google.com/store" class="price-btn" target="_blank" data-t="plan_free_cta"></a>
+      <a href="#" class="price-btn play-link" target="_blank" rel="noopener" data-t="plan_free_cta"></a>
     </div>
     <div class="price-card">
       <div class="price-plan-name" data-t="plan_family"></div>
       <div class="price-tag" id="family-price">1,99€</div>
       <div class="price-period" id="family-period"></div>
       <ul class="price-features" id="family-features"></ul>
-      <a href="https://play.google.com/store" class="price-btn" target="_blank" data-t="plan_family_cta"></a>
+      <a href="#" class="price-btn play-link" target="_blank" rel="noopener" data-t="plan_family_cta"></a>
       <div class="price-trial" data-t="price_trial"></div>
     </div>
     <div class="price-card featured">
@@ -456,7 +457,7 @@
       <div class="price-tag gold" id="familyplus-price">2,99€</div>
       <div class="price-period" id="familyplus-period"></div>
       <ul class="price-features" id="familyplus-features"></ul>
-      <a href="https://play.google.com/store" class="price-btn featured-btn" target="_blank" data-t="plan_familyplus_cta"></a>
+      <a href="#" class="price-btn featured-btn play-link" target="_blank" rel="noopener" data-t="plan_familyplus_cta"></a>
       <div class="price-trial" data-t="price_trial"></div>
     </div>
   </div>
@@ -479,6 +480,10 @@
 </footer>
 
 <script>
+// ====== URL de Google Play — cambiar al publicar ======
+const PLAY_URL = "https://play.google.com/store/apps/details?id=com.nourdigital.app";
+document.querySelectorAll('.play-link').forEach(a => a.setAttribute('href', PLAY_URL));
+
 let currentSlide = 0;
 const totalSlides = 9;
 function updateCarousel() {
@@ -683,13 +688,13 @@ const PLAN_FEATURES = {
       {check:true, text:"Formación 143 lecciones"},
       {check:true, text:"Validación de rezos"},
       {check:true, text:"Mensajes padre-hijo"},
-      {check:false, text:"Hijos ilimitados"},
+      {check:false, text:"Hasta 10 hijos"},
       {check:false, text:"Estadísticas avanzadas"},
       {check:false, text:"Recordatorios personalizados"},
     ],
     familyplus: [
       {check:true, gold:true, text:"Todo lo de Family"},
-      {check:true, gold:true, text:"Hijos ilimitados"},
+      {check:true, gold:true, text:"Hasta 10 hijos"},
       {check:true, gold:true, text:"Estadísticas avanzadas"},
       {check:true, gold:true, text:"Historial completo"},
       {check:true, gold:true, text:"Recordatorios personalizados"},
@@ -718,13 +723,13 @@ const PLAN_FEATURES = {
       {check:true, text:"143 lesson curriculum"},
       {check:true, text:"Prayer validation"},
       {check:true, text:"Parent-child messages"},
-      {check:false, text:"Unlimited children"},
+      {check:false, text:"Up to 10 children"},
       {check:false, text:"Advanced statistics"},
       {check:false, text:"Personalised reminders"},
     ],
     familyplus: [
       {check:true, gold:true, text:"Everything in Family"},
-      {check:true, gold:true, text:"Unlimited children"},
+      {check:true, gold:true, text:"Up to 10 children"},
       {check:true, gold:true, text:"Advanced statistics"},
       {check:true, gold:true, text:"Full history"},
       {check:true, gold:true, text:"Personalised reminders"},
@@ -749,17 +754,17 @@ const PLAN_FEATURES = {
       {check:true, text:"كل ما في المجاني"},
       {check:true, text:"حتى ٣ ملفات أطفال"},
       {check:true, text:"وضع نور Jr. الكامل"},
-      {check:true, text:"الفصل — ١٢ لعبة إسلامية"},
-      {check:true, text:"٩٩+ درساً تعليمياً"},
+      {check:true, text:"الفصل — ١٤ لعبة إسلامية"},
+      {check:true, text:"١٤٣ درساً تعليمياً"},
       {check:true, text:"التحقق من الصلوات"},
       {check:true, text:"رسائل الوالد للطفل"},
-      {check:false, text:"أطفال غير محدودين"},
+      {check:false, text:"حتى ١٠ أطفال"},
       {check:false, text:"إحصائيات متقدمة"},
       {check:false, text:"تذكيرات مخصصة"},
     ],
     familyplus: [
       {check:true, gold:true, text:"كل ما في العائلي"},
-      {check:true, gold:true, text:"أطفال غير محدودين"},
+      {check:true, gold:true, text:"حتى ١٠ أطفال"},
       {check:true, gold:true, text:"إحصائيات متقدمة"},
       {check:true, gold:true, text:"سجل كامل"},
       {check:true, gold:true, text:"تذكيرات مخصصة"},
@@ -810,10 +815,10 @@ const FAQ = {
       { q: '¿Qué son los juegos del Aula?', a: 'El Aula tiene 14 juegos islámicos: diccionario islámico, memory de letras árabes, quiz de los 99 nombres, ordenar rezos, emparejar profetas, halal o haram, completar ayahs, wudú paso a paso, quiz de ángeles, verdadero o falso, ordena los pilares, ¿quién soy?, nombres de Allah y quiz de profetas.' },
     ]},
     { section: 'Suscripción y pagos', items: [
-      { q: '¿Cuál es la diferencia entre Family y Family+?', a: 'Family incluye hasta 3 perfiles de hijo con acceso completo al modo Nour Jr. Family+ añade hijos ilimitados, estadísticas avanzadas, historial completo y recordatorios personalizados.' },
+      { q: '¿Cuál es la diferencia entre Family y Family+?', a: 'Family incluye hasta 3 perfiles de hijo con acceso completo al modo Nour Jr. Family+ amplía hasta 10 hijos, con estadísticas avanzadas, historial completo y recordatorios personalizados.' },
       { q: '¿Hay prueba gratuita?', a: 'Sí, 7 días gratis en cualquier plan de pago. Sin compromiso, cancela cuando quieras.' },
       { q: '¿Cómo cancelo la suscripción?', a: 'Puedes cancelar en cualquier momento desde Google Play → Suscripciones. El acceso se mantiene hasta el final del período pagado.' },
-      { q: '¿Tengo un código promocional?', a: 'Ve a la pantalla de planes dentro de la app, desplázate hasta abajo y pulsa "¿Tienes un código promocional?".' },
+      { q: '¿Tengo un código promocional?', a: 'Los códigos promocionales se canjean directamente en Google Play. Abre el enlace que recibiste y la suscripción se activará en tu cuenta.' },
     ]},
     { section: 'Técnico y privacidad', items: [
       { q: '¿Qué datos recoge Nour?', a: 'Solo los necesarios: tu email para la cuenta, tu ubicación para los tiempos de rezo y mezquitas cercanas, y la actividad de rezos y formación de tus hijos. Nunca compartimos datos con terceros.' },
@@ -833,10 +838,10 @@ const FAQ = {
       { q: 'What are the Aula games?', a: 'The Aula has 14 Islamic games: Islamic dictionary, Arabic letter memory, 99 names quiz, order the prayers, match prophets, halal or haram, complete the ayah, wudu step by step, angels quiz, true or false, order the pillars, who am I?, names of Allah and prophets quiz.' },
     ]},
     { section: 'Subscription and payments', items: [
-      { q: 'What is the difference between Family and Family+?', a: 'Family includes up to 3 child profiles with full access to Nour Jr. mode. Family+ adds unlimited children, advanced statistics, full history and personalised reminders.' },
+      { q: 'What is the difference between Family and Family+?', a: 'Family includes up to 3 child profiles with full access to Nour Jr. mode. Family+ extends to up to 10 children, with advanced statistics, full history and personalised reminders.' },
       { q: 'Is there a free trial?', a: 'Yes, 7 days free on any paid plan. No commitment, cancel whenever you want.' },
       { q: 'How do I cancel my subscription?', a: 'You can cancel at any time from Google Play → Subscriptions. Access continues until the end of the paid period.' },
-      { q: 'I have a promo code.', a: 'Go to the plans screen inside the app, scroll down and tap "Got a promo code?".' },
+      { q: 'I have a promo code.', a: 'Promo codes are redeemed directly in Google Play. Open the link you received and the subscription will activate on your account.' },
     ]},
     { section: 'Technical and privacy', items: [
       { q: 'What data does Nour collect?', a: 'Only what is necessary: your email for the account, your location for prayer times and nearby mosques, and your children\'s prayer and learning activity. We never share data with third parties.' },
@@ -845,7 +850,7 @@ const FAQ = {
   ],
   ar: [
     { section: 'عام', items: [
-      { q: 'ما هو تطبيق نور؟', a: 'نور هو تطبيق إسلامي عائلي بوضعين: وضع للوالد مع المسبحة وأوقات الصلاة والقبلة والقرآن والمزيد؛ ووضع للطفل مع التعليم الإسلامي التفاعلي ومتابعة الصلوات.' },
+      { q: 'ما هو تطبيق نور؟', a: 'نور هو تطبيق إسلامي عائلي بوضعين: وضع للوالد مع المسبحة وأوقات الصلاة والقبلة والقرآن والمزيد؛ ووضع للطفل مع ١٤٣ درساً إسلامياً و١٤ لعبة تعليمية وجرة الصدقة ومتابعة الصلوات.' },
       { q: 'هل التطبيق مجاني؟', a: 'نعم. نور مجاني تماماً وبدون إعلانات لوضع الوالد. وضع الطفل (نور Jr.) يتطلب اشتراكاً عائلياً أو عائلياً بلس يمكن إدارته من Google Play.' },
       { q: 'من أي عمر يُنصح باستخدامه؟', a: 'من عمر ٤-٥ سنوات لأول الكلمات: البسملة، التكبير والأدعية اليومية. من عمر ٧ سنوات للصلاة الكاملة والفاتحة، اتباعاً لسنة النبي ﷺ.' },
       { q: 'هل التطبيق متاح بلغات أخرى؟', a: 'نعم، التطبيق متاح بالعربية والإسبانية والإنجليزية. يمكنك تغيير اللغة من الإعدادات.' },
@@ -853,13 +858,13 @@ const FAQ = {
     { section: 'وضع الطفل والتعلم', items: [
       { q: 'كيف يدخل طفلي إلى التطبيق؟', a: 'من لوحة تحكم الوالدين، اضغط زر الرمز بجانب ملف طفلك. يتولّد رمز مكوّن من ٦ أرقام. يدخله طفلك في جهازه.' },
       { q: 'ماذا تعني كل نجمة؟', a: '⭐ نجمة واحدة: الطفل يدرس. ⭐⭐ نجمتان: اجتاز الاختبار. ⭐⭐⭐ ثلاث نجوم: الوالد تحقق شخصياً أنه يعرفه فعلاً.' },
-      { q: 'ما هي ألعاب الفصل؟', a: 'الفصل يحتوي على ١٢ لعبة إسلامية: ذاكرة الحروف العربية، اختبار الأسماء الحسنى، ترتيب الصلوات، مطابقة الأنبياء، حلال أم حرام، إكمال الآية، الوضوء خطوة بخطوة، اختبار الملائكة، صح أم خطأ، رتّب الأركان، من أنا؟ وأسماء الله.' },
+      { q: 'ما هي ألعاب الفصل؟', a: 'الفصل يحتوي على ١٤ لعبة إسلامية: القاموس الإسلامي، ذاكرة الحروف العربية، اختبار الأسماء الحسنى، ترتيب الصلوات، مطابقة الأنبياء، حلال أم حرام، إكمال الآية، الوضوء خطوة بخطوة، اختبار الملائكة، صح أم خطأ، رتّب الأركان، من أنا؟، أسماء الله واختبار الأنبياء.' },
     ]},
     { section: 'الاشتراك والمدفوعات', items: [
-      { q: 'ما الفرق بين العائلي والعائلي بلس؟', a: 'العائلي يشمل حتى ٣ ملفات أطفال مع وصول كامل لوضع نور Jr. العائلي بلس يضيف أطفالاً غير محدودين وإحصائيات متقدمة وسجلاً كاملاً وتذكيرات مخصصة.' },
+      { q: 'ما الفرق بين العائلي والعائلي بلس؟', a: 'العائلي يشمل حتى ٣ ملفات أطفال مع وصول كامل لوضع نور Jr. العائلي بلس يوسّع حتى ١٠ أطفال، مع إحصائيات متقدمة وسجل كامل وتذكيرات مخصصة.' },
       { q: 'هل هناك فترة تجريبية مجانية؟', a: 'نعم، ٧ أيام مجانية على أي خطة مدفوعة. بدون التزام، ألغِ متى تشاء.' },
       { q: 'كيف أُلغي الاشتراك؟', a: 'يمكنك الإلغاء في أي وقت من Google Play ← الاشتراكات. يستمر الوصول حتى نهاية الفترة المدفوعة.' },
-      { q: 'لديّ رمز ترويجي.', a: 'اذهب إلى شاشة الخطط داخل التطبيق، انتقل لأسفل واضغط "هل لديك رمز ترويجي؟".' },
+      { q: 'لديّ رمز ترويجي.', a: 'تُستبدل الرموز الترويجية مباشرة في Google Play. افتح الرابط الذي استلمته وسيُفعّل الاشتراك في حسابك.' },
     ]},
     { section: 'التقني والخصوصية', items: [
       { q: 'ما البيانات التي يجمعها نور؟', a: 'فقط الضرورية: بريدك الإلكتروني للحساب، موقعك لأوقات الصلاة والمساجد القريبة، ونشاط صلوات وتعلّم أطفالك. لا نشارك البيانات مع أطراف ثالثة أبداً.' },
